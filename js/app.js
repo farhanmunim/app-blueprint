@@ -9,7 +9,7 @@
 
    Modules:
      • Drawer     — mobile off-canvas drawer for left/right panels + scroll lock
-     • Panels     — desktop collapse/expand for left, right, bottom panels
+     • Panels     — desktop collapse/expand for left and right panels
      • Tabs       — generic tab-switcher for any [data-tabs] group
      • Nav        — sidebar nav-item active state
      • MobileNav  — bottom navigation bar on mobile
@@ -28,11 +28,8 @@
     overlay:          $('#overlay'),
     panelLeft:        $('#panelLeft'),
     panelRight:       $('#panelRight'),
-    panelBottom:      $('#panelBottom'),
     leftPanelHd:      $('#leftPanelHd'),
     rightPanelHd:     $('#rightPanelHd'),
-    bottomPanelHd:    $('#bottomPanelHd'),
-    bottomCollapseBtn:$('#bottomCollapseBtn'),
     rightCollapseTab: $('#rightCollapseTab'),
   };
 
@@ -90,16 +87,6 @@
       on(els.rightCollapseTab, 'click', () => {
         els.panelRight && els.panelRight.classList.remove('collapsed');
       });
-
-      on(els.bottomPanelHd, 'click', (e) => {
-        if (e.target.closest('.bottom-tab')) return; // tab clicks handled by Tabs
-        els.panelBottom.classList.toggle('collapsed');
-      });
-
-      on(els.bottomCollapseBtn, 'click', (e) => {
-        e.stopPropagation();
-        els.panelBottom && els.panelBottom.classList.toggle('collapsed');
-      });
     },
   };
 
@@ -112,9 +99,7 @@
      ======================================================================= */
   const Tabs = {
     groups: [
-      { tab: '.toolbar-tab',  group: '.toolbar-tabs'  },
-      { tab: '.right-tab',    group: '.right-tabs'    },
-      { tab: '.bottom-tab',   group: '.bottom-tabs'   },
+      { tab: '.right-tab', group: '.right-tabs' },
     ],
 
     init() {
@@ -124,11 +109,6 @@
     },
 
     activate(tab, tabSel, groupSel) {
-      // Special case: bottom-tab click while panel collapsed just expands it
-      if (tabSel === '.bottom-tab' && els.panelBottom && els.panelBottom.classList.contains('collapsed')) {
-        els.panelBottom.classList.remove('collapsed');
-        return;
-      }
       const parent = tab.closest(groupSel);
       if (!parent) return;
       $$(tabSel, parent).forEach(x => x.classList.remove('active'));
