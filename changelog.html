@@ -1,203 +1,293 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Changelog · Acme Inc.</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="css/app.css" />
-  <script>
-    (function () {
-      try {
-        var stored = localStorage.getItem('app-theme');
-        var theme = stored || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
-        document.documentElement.setAttribute('data-theme', theme);
-      } catch (_) {}
-    })();
-  </script>
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Changelog · Acme Inc.</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/app.css" />
+    <script>
+      (function () {
+        try {
+          var stored = localStorage.getItem("app-theme");
+          var theme =
+            stored || (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+          document.documentElement.setAttribute("data-theme", theme);
+        } catch (_) {}
+      })();
+    </script>
+  </head>
+  <body>
+    <!-- TOPBAR -->
+    <header class="topbar">
+      <a href="index.html" class="topbar-logo">
+        <div class="logo-mark">
+          <svg
+            viewBox="0 0 16 16"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path
+              d="M3 3h4v4H3zM9 3h4v4H9zM3 9h4v4H9zM3 9h4v4H3zM9 9h4v4H9z"
+              fill="currentColor"
+              stroke="none"
+            />
+          </svg>
+        </div>
+        <span>Acme Inc.</span>
+      </a>
+      <a href="changelog.html" class="version-pill" title="View changelog">v2.14.0</a>
 
-<!-- TOPBAR -->
-<header class="topbar">
-  <a href="index.html" class="topbar-logo">
-    <div class="logo-mark">
-      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M3 3h4v4H3zM9 3h4v4H9zM3 9h4v4H9zM3 9h4v4H3zM9 9h4v4H9z" fill="currentColor" stroke="none"/>
-      </svg>
-    </div>
-    <span>Acme Inc.</span>
-  </a>
-  <a href="changelog.html" class="version-pill" title="View changelog">v2.14.0</a>
+      <div class="topbar-spacer"></div>
 
-  <div class="topbar-spacer"></div>
+      <button
+        class="btn btn-ghost btn-icon btn-sm theme-toggle"
+        id="themeToggle"
+        aria-label="Toggle theme"
+        title="Toggle theme"
+      >
+        <svg class="icon icon-sm theme-icon-light" viewBox="0 0 24 24">
+          <circle cx="12" cy="12" r="4" />
+          <path
+            d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"
+          />
+        </svg>
+        <svg class="icon icon-sm theme-icon-dark" viewBox="0 0 24 24">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79Z" />
+        </svg>
+      </button>
 
-  <button class="btn btn-ghost btn-icon btn-sm theme-toggle" id="themeToggle" aria-label="Toggle theme" title="Toggle theme">
-    <svg class="icon icon-sm theme-icon-light" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
-    <svg class="icon icon-sm theme-icon-dark" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79Z"/></svg>
-  </button>
+      <a href="index.html" class="btn btn-outline btn-sm">
+        <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="m15 18-6-6 6-6" /></svg>
+        Back to app
+      </a>
+    </header>
 
-  <a href="index.html" class="btn btn-outline btn-sm">
-    <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></svg>
-    Back to app
-  </a>
-</header>
+    <main class="changelog-main">
+      <div class="changelog-area">
+        <div class="changelog">
+          <header class="cl-header">
+            <span class="cl-eyebrow">Product Updates</span>
+            <h1 class="cl-title">Changelog</h1>
+            <p class="cl-sub">
+              New features, improvements, and fixes shipped to Acme Inc. Follow along inside the app
+              or subscribe via RSS.
+            </p>
+          </header>
 
-<main class="changelog-main">
-  <div class="changelog-area">
-      <div class="changelog">
-        <header class="cl-header">
-          <span class="cl-eyebrow">Product Updates</span>
-          <h1 class="cl-title">Changelog</h1>
-          <p class="cl-sub">New features, improvements, and fixes shipped to Acme Inc. Follow along inside the app or subscribe via RSS.</p>
-        </header>
-
-        <article class="cl-entry">
-          <div class="cl-date">Apr 14, 2026</div>
-          <a href="#v2140" class="cl-entry-title">Inspector panel and command palette now available</a>
-          <div class="cl-hero">
-            <div class="hero-mock">
-              <div class="hm-bar"><span class="hm-dot"></span><span class="hm-dot"></span><span class="hm-dot"></span></div>
-              <div class="hm-body">
-                <div class="hm-side">
-                  <div class="hm-si sel"><span class="d"></span><span class="l"></span></div>
-                  <div class="hm-si"><span class="d"></span><span class="l" style="width:60%"></span></div>
-                  <div class="hm-si"><span class="d"></span><span class="l" style="width:75%"></span></div>
-                  <div class="hm-si"><span class="d"></span><span class="l" style="width:50%"></span></div>
+          <article class="cl-entry">
+            <div class="cl-date">Apr 14, 2026</div>
+            <a href="#v2140" class="cl-entry-title"
+              >Inspector panel and command palette now available</a
+            >
+            <div class="cl-hero">
+              <div class="hero-mock">
+                <div class="hm-bar">
+                  <span class="hm-dot"></span><span class="hm-dot"></span
+                  ><span class="hm-dot"></span>
                 </div>
-                <div class="hm-main">
-                  <div class="hm-title"></div>
-                  <div class="hm-cards">
-                    <div class="hm-card hl"><div class="t"></div><div class="b"></div></div>
-                    <div class="hm-card"><div class="t"></div><div class="b"></div></div>
-                    <div class="hm-card"><div class="t"></div><div class="b"></div></div>
+                <div class="hm-body">
+                  <div class="hm-side">
+                    <div class="hm-si sel"><span class="d"></span><span class="l"></span></div>
+                    <div class="hm-si">
+                      <span class="d"></span><span class="l" style="width: 60%"></span>
+                    </div>
+                    <div class="hm-si">
+                      <span class="d"></span><span class="l" style="width: 75%"></span>
+                    </div>
+                    <div class="hm-si">
+                      <span class="d"></span><span class="l" style="width: 50%"></span>
+                    </div>
                   </div>
-                  <div class="hm-table">
-                    <div class="hm-row sel"></div>
-                    <div class="hm-row"></div>
-                    <div class="hm-row"></div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <p class="cl-body-text">
-            The workspace now includes an <strong>Inspector right-panel</strong> for editing record properties, managing tags, and reviewing activity without leaving the canvas. Open it from any row, or toggle it with the slim tab on the edge.
-          </p>
-          <p class="cl-body-text">
-            We've also rolled out a <strong>command palette</strong> — hit <code>⌘K</code> anywhere in the app to jump between workspaces, items, and settings. <a href="#learn">Learn more</a> about the new shortcuts.
-          </p>
-          <div class="cl-authors">
-            <a href="#farhan" class="cl-author">
-              <span class="cl-author-avatar" style="background:#0EA5E9">FH</span>
-              Farhan H.
-            </a>
-            <a href="#aisha" class="cl-author">
-              <span class="cl-author-avatar" style="background:#8B5CF6">AK</span>
-              Aisha K.
-            </a>
-          </div>
-        </article>
-
-        <article class="cl-entry">
-          <div class="cl-date">Mar 28, 2026</div>
-          <a href="#v2132" class="cl-entry-title">Permissions, webhook retries, and timezone fixes</a>
-          <div class="cl-hero dark">
-            <div class="hero-mock">
-              <div class="hm-bar"><span class="hm-dot"></span><span class="hm-dot"></span><span class="hm-dot"></span></div>
-              <div class="hm-body">
-                <div class="hm-side">
-                  <div class="hm-si"><span class="d"></span><span class="l" style="width:65%"></span></div>
-                  <div class="hm-si sel"><span class="d"></span><span class="l"></span></div>
-                  <div class="hm-si"><span class="d"></span><span class="l" style="width:55%"></span></div>
-                </div>
-                <div class="hm-main">
-                  <div class="hm-title" style="width:30%"></div>
-                  <div class="hm-table">
-                    <div class="hm-row"></div>
-                    <div class="hm-row sel"></div>
-                    <div class="hm-row"></div>
-                    <div class="hm-row"></div>
-                    <div class="hm-row"></div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <p class="cl-body-text">
-            A small but important patch release. <strong>Admin users</strong> can once again write to <code>billing</code> endpoints after we resolved a regression in our permission check. Webhook delivery now honours exponential backoff after rate-limit responses, and date pickers correctly respect the workspace timezone instead of UTC.
-          </p>
-          <div class="cl-authors">
-            <a href="#aisha" class="cl-author">
-              <span class="cl-author-avatar" style="background:#8B5CF6">AK</span>
-              Aisha K.
-            </a>
-            <a href="#mo" class="cl-author">
-              <span class="cl-author-avatar" style="background:#10B981">MR</span>
-              Mo R.
-            </a>
-          </div>
-        </article>
-
-        <article class="cl-entry">
-          <div class="cl-date">Mar 11, 2026</div>
-          <a href="#v2130" class="cl-entry-title">Console panel, status badges, and a new mobile shell</a>
-          <div class="cl-hero">
-            <div class="hero-mock">
-              <div class="hm-bar"><span class="hm-dot"></span><span class="hm-dot"></span><span class="hm-dot"></span></div>
-              <div class="hm-body">
-                <div class="hm-side">
-                  <div class="hm-si sel"><span class="d"></span><span class="l" style="width:70%"></span></div>
-                  <div class="hm-si"><span class="d"></span><span class="l" style="width:55%"></span></div>
-                  <div class="hm-si"><span class="d"></span><span class="l" style="width:65%"></span></div>
-                </div>
-                <div class="hm-main">
-                  <div class="hm-title"></div>
-                  <div class="hm-cards">
-                    <div class="hm-card"><div class="t"></div><div class="b"></div></div>
-                    <div class="hm-card hl"><div class="t"></div><div class="b"></div></div>
-                    <div class="hm-card"><div class="t"></div><div class="b"></div></div>
-                    <div class="hm-card"><div class="t"></div><div class="b"></div></div>
+                  <div class="hm-main">
+                    <div class="hm-title"></div>
+                    <div class="hm-cards">
+                      <div class="hm-card hl">
+                        <div class="t"></div>
+                        <div class="b"></div>
+                      </div>
+                      <div class="hm-card">
+                        <div class="t"></div>
+                        <div class="b"></div>
+                      </div>
+                      <div class="hm-card">
+                        <div class="t"></div>
+                        <div class="b"></div>
+                      </div>
+                    </div>
+                    <div class="hm-table">
+                      <div class="hm-row sel"></div>
+                      <div class="hm-row"></div>
+                      <div class="hm-row"></div>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
-          <p class="cl-body-text">
-            We've shipped a <strong>console panel</strong> at the bottom of the workspace for live logs, output, and problems — collapse it with the chevron to reclaim vertical space. Tables now use colour-coded status badges for Active, Pending, and Error states.
-          </p>
-          <p class="cl-body-text">
-            On mobile, the shell has been rewritten as an <strong>off-canvas drawer</strong> with a five-tab bottom navigation, so every tool in the app is one tap away.
-          </p>
-          <div class="cl-authors">
-            <a href="#farhan" class="cl-author">
-              <span class="cl-author-avatar" style="background:#0EA5E9">FH</span>
-              Farhan H.
-            </a>
-          </div>
-        </article>
+            <p class="cl-body-text">
+              The workspace now includes an <strong>Inspector right-panel</strong> for editing
+              record properties, managing tags, and reviewing activity without leaving the canvas.
+              Open it from any row, or toggle it with the slim tab on the edge.
+            </p>
+            <p class="cl-body-text">
+              We've also rolled out a <strong>command palette</strong> — hit
+              <code>⌘K</code> anywhere in the app to jump between workspaces, items, and settings.
+              <a href="#learn">Learn more</a> about the new shortcuts.
+            </p>
+            <div class="cl-authors">
+              <a href="#farhan" class="cl-author">
+                <span class="cl-author-avatar" style="background: #0ea5e9">FH</span>
+                Farhan M.
+              </a>
+              <a href="#aisha" class="cl-author">
+                <span class="cl-author-avatar" style="background: #8b5cf6">AK</span>
+                Aisha K.
+              </a>
+            </div>
+          </article>
 
+          <article class="cl-entry">
+            <div class="cl-date">Mar 28, 2026</div>
+            <a href="#v2132" class="cl-entry-title"
+              >Permissions, webhook retries, and timezone fixes</a
+            >
+            <div class="cl-hero dark">
+              <div class="hero-mock">
+                <div class="hm-bar">
+                  <span class="hm-dot"></span><span class="hm-dot"></span
+                  ><span class="hm-dot"></span>
+                </div>
+                <div class="hm-body">
+                  <div class="hm-side">
+                    <div class="hm-si">
+                      <span class="d"></span><span class="l" style="width: 65%"></span>
+                    </div>
+                    <div class="hm-si sel"><span class="d"></span><span class="l"></span></div>
+                    <div class="hm-si">
+                      <span class="d"></span><span class="l" style="width: 55%"></span>
+                    </div>
+                  </div>
+                  <div class="hm-main">
+                    <div class="hm-title" style="width: 30%"></div>
+                    <div class="hm-table">
+                      <div class="hm-row"></div>
+                      <div class="hm-row sel"></div>
+                      <div class="hm-row"></div>
+                      <div class="hm-row"></div>
+                      <div class="hm-row"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <p class="cl-body-text">
+              A small but important patch release. <strong>Admin users</strong> can once again write
+              to <code>billing</code> endpoints after we resolved a regression in our permission
+              check. Webhook delivery now honours exponential backoff after rate-limit responses,
+              and date pickers correctly respect the workspace timezone instead of UTC.
+            </p>
+            <div class="cl-authors">
+              <a href="#aisha" class="cl-author">
+                <span class="cl-author-avatar" style="background: #8b5cf6">AK</span>
+                Aisha K.
+              </a>
+              <a href="#mo" class="cl-author">
+                <span class="cl-author-avatar" style="background: #10b981">MR</span>
+                Mo R.
+              </a>
+            </div>
+          </article>
+
+          <article class="cl-entry">
+            <div class="cl-date">Mar 11, 2026</div>
+            <a href="#v2130" class="cl-entry-title"
+              >Console panel, status badges, and a new mobile shell</a
+            >
+            <div class="cl-hero">
+              <div class="hero-mock">
+                <div class="hm-bar">
+                  <span class="hm-dot"></span><span class="hm-dot"></span
+                  ><span class="hm-dot"></span>
+                </div>
+                <div class="hm-body">
+                  <div class="hm-side">
+                    <div class="hm-si sel">
+                      <span class="d"></span><span class="l" style="width: 70%"></span>
+                    </div>
+                    <div class="hm-si">
+                      <span class="d"></span><span class="l" style="width: 55%"></span>
+                    </div>
+                    <div class="hm-si">
+                      <span class="d"></span><span class="l" style="width: 65%"></span>
+                    </div>
+                  </div>
+                  <div class="hm-main">
+                    <div class="hm-title"></div>
+                    <div class="hm-cards">
+                      <div class="hm-card">
+                        <div class="t"></div>
+                        <div class="b"></div>
+                      </div>
+                      <div class="hm-card hl">
+                        <div class="t"></div>
+                        <div class="b"></div>
+                      </div>
+                      <div class="hm-card">
+                        <div class="t"></div>
+                        <div class="b"></div>
+                      </div>
+                      <div class="hm-card">
+                        <div class="t"></div>
+                        <div class="b"></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <p class="cl-body-text">
+              We've shipped a <strong>console panel</strong> at the bottom of the workspace for live
+              logs, output, and problems — collapse it with the chevron to reclaim vertical space.
+              Tables now use colour-coded status badges for Active, Pending, and Error states.
+            </p>
+            <p class="cl-body-text">
+              On mobile, the shell has been rewritten as an <strong>off-canvas drawer</strong> with
+              a five-tab bottom navigation, so every tool in the app is one tap away.
+            </p>
+            <div class="cl-authors">
+              <a href="#farhan" class="cl-author">
+                <span class="cl-author-avatar" style="background: #0ea5e9">FH</span>
+                Farhan M.
+              </a>
+            </div>
+          </article>
+        </div>
       </div>
-    </div>
-</main>
+    </main>
 
-<!-- APP FOOTER -->
-<footer class="app-footer">
-  <a href="index.html#about">About</a>
-  <span class="footer-sep"></span>
-  <a href="changelog.html" style="color:var(--text-1)">Changelog</a>
-  <span class="footer-sep"></span>
-  <a href="index.html#docs">Docs</a>
-  <span class="footer-sep"></span>
-  <a href="index.html#privacy">Privacy</a>
-  <span class="footer-spacer"></span>
-  <span class="footer-meta">All systems operational</span>
-  <span class="footer-sep"></span>
-  <span>Built by <a href="#farhan" style="display:inline">Farhan</a></span>
-</footer>
+    <!-- APP FOOTER -->
+    <footer class="app-footer">
+      <a href="index.html#about">About</a>
+      <span class="footer-sep"></span>
+      <a href="changelog.html" style="color: var(--text-1)">Changelog</a>
+      <span class="footer-sep"></span>
+      <a href="index.html#docs">Docs</a>
+      <span class="footer-sep"></span>
+      <a href="index.html#privacy">Privacy</a>
+      <span class="footer-spacer"></span>
+      <span class="footer-meta">All systems operational</span>
+      <span class="footer-sep"></span>
+      <span>Built by <a href="#farhan" style="display: inline">Farhan</a></span>
+    </footer>
 
-<script src="js/app.js" defer></script>
-</body>
+    <script src="js/app.js" defer></script>
+  </body>
 </html>

@@ -69,11 +69,11 @@
   --ring:                 240 5% 64.9%;
 
   /* Status */
-  --success:              142 71% 36%;
-  --success-bg:           142 71% 95%;
-  --warning:              35 92% 38%;
-  --warning-bg:           38 92% 95%;
-  --info-bg:              214 95% 96%;
+  --success:              142 65% 30%;
+  --success-bg:           142 60% 94%;
+  --warning:              32 85% 32%;
+  --warning-bg:           38 88% 93%;
+  --info-bg:              214 95% 95%;
 
   /* Backwards-compatible aliases used throughout */
   --bg:        hsl(var(--background));
@@ -91,17 +91,18 @@
   --overlay:   hsl(240 10% 3.9% / 0.45);
 
   /* Status semantic */
-  --green-bg:  hsl(var(--success-bg)); --green-bd: hsl(142 50% 80%); --green-tx: hsl(var(--success));
-  --amber-bg:  hsl(var(--warning-bg)); --amber-bd: hsl(38 80% 75%);  --amber-tx: hsl(var(--warning));
-  --red-bg:    hsl(0 93% 96%);         --red-bd:   hsl(0 80% 85%);   --red-tx:   hsl(var(--destructive));
-  --blue-bg:   hsl(var(--info-bg));    --blue-bd:  hsl(214 90% 82%); --blue-tx:  hsl(var(--info));
+  --green-bg:  hsl(var(--success-bg)); --green-bd: hsl(142 55% 78%); --green-tx: hsl(var(--success));
+  --amber-bg:  hsl(var(--warning-bg)); --amber-bd: hsl(35 85% 72%);  --amber-tx: hsl(var(--warning));
+  --red-bg:    hsl(0 88% 95%);         --red-bd:   hsl(0 78% 82%);   --red-tx:   hsl(0 72% 42%);
+  --blue-bg:   hsl(var(--info-bg));    --blue-bd:  hsl(214 90% 80%); --blue-tx:  hsl(217 91% 45%);
+  --violet-bg: hsl(262 85% 96%);       --violet-bd:hsl(262 75% 82%); --violet-tx:hsl(262 70% 46%);
 
   /* ── Layout ──────────────────────────────── */
   --panel-w:       240px;
   --panel-w-rail:   52px;
   --right-w:       300px;
   --topbar-h:       52px;
-  --mobile-nav-h:   56px;
+  --mobile-nav-h:   68px;
 
   /* ── Spacing ─────────────────────────────── */
   --sp-1:  4px;  --sp-2:  6px;  --sp-3:  8px;
@@ -169,12 +170,12 @@
   --ring:                 240 4.9% 83.9%;
 
   /* Status (dimmed for dark background) */
-  --success:              142 60% 55%;
-  --success-bg:           142 50% 14%;
-  --warning:              38 92% 60%;
-  --warning-bg:           38 60% 14%;
-  --info:                 217 91% 60%;
-  --info-bg:              217 60% 14%;
+  --success:              142 65% 58%;
+  --success-bg:           142 55% 13%;
+  --warning:              38 95% 62%;
+  --warning-bg:           35 70% 13%;
+  --info:                 217 92% 62%;
+  --info-bg:              217 70% 14%;
 
   /* Aliases that were hard-coded in light mode */
   --border-2:  hsl(240 3.7% 25%);
@@ -182,11 +183,14 @@
   --overlay:   hsl(0 0% 0% / 0.6);
 
   /* Status chip border/bg overrides */
-  --green-bd: hsl(142 30% 28%);
-  --amber-bd: hsl(38 40% 28%);
-  --red-bd:   hsl(0 40% 32%);
-  --blue-bd:  hsl(217 40% 32%);
-  --red-bg:   hsl(0 50% 14%);
+  --green-bd: hsl(142 40% 26%);
+  --amber-bd: hsl(35 55% 26%);
+  --red-bd:   hsl(0 55% 30%);
+  --blue-bd:  hsl(217 55% 30%);
+  --red-bg:   hsl(0 60% 13%);
+  --violet-bg: hsl(262 55% 15%);
+  --violet-bd: hsl(262 50% 30%);
+  --violet-tx: hsl(262 85% 72%);
 }
 
 /* Canvas area dot-grid inverts in dark mode */
@@ -419,6 +423,7 @@ a.btn-primary, a.btn-primary:hover, a.btn-primary:visited { color: hsl(var(--pri
 .chip-green  { background: var(--green-bg);  border-color: var(--green-bd); color: var(--green-tx); }
 .chip-amber  { background: var(--amber-bg);  border-color: var(--amber-bd); color: var(--amber-tx); }
 .chip-red    { background: var(--red-bg);    border-color: var(--red-bd);   color: var(--red-tx);   }
+.chip-violet { background: var(--violet-bg); border-color: var(--violet-bd);color: var(--violet-tx);}
 .chip-outline{ background: transparent; border-color: var(--border-c); color: var(--text-2); }
 .chip-dot { width: 6px; height: 6px; border-radius: var(--r-pill); background: currentColor; margin-right: 6px; }
 

@@ -1,352 +1,523 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>App Wireframe</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="css/app.css" />
-  <script>
-    // Apply theme before paint to avoid flash of incorrect theme
-    (function () {
-      try {
-        var stored = localStorage.getItem('app-theme');
-        var theme = stored || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
-        document.documentElement.setAttribute('data-theme', theme);
-      } catch (_) {}
-    })();
-  </script>
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>App Wireframe</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/app.css" />
+    <script>
+      // Apply theme before paint to avoid flash of incorrect theme
+      (function () {
+        try {
+          var stored = localStorage.getItem("app-theme");
+          var theme =
+            stored || (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+          document.documentElement.setAttribute("data-theme", theme);
+        } catch (_) {}
+      })();
+    </script>
+  </head>
+  <body>
+    <!-- TOPBAR -->
+    <header class="topbar">
+      <a href="index.html" class="topbar-logo">
+        <div class="logo-mark">
+          <svg
+            viewBox="0 0 16 16"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path
+              d="M3 3h4v4H3zM9 3h4v4H9zM3 9h4v4H3zM9 9h4v4H9z"
+              fill="currentColor"
+              stroke="none"
+            />
+          </svg>
+        </div>
+        <span>Acme Inc.</span>
+      </a>
+      <a href="changelog.html" class="version-pill" title="View changelog">v2.14.0</a>
 
-<!-- TOPBAR -->
-<header class="topbar">
-  <a href="index.html" class="topbar-logo">
-    <div class="logo-mark">
-      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M3 3h4v4H3zM9 3h4v4H9zM3 9h4v4H3zM9 9h4v4H9z" fill="currentColor" stroke="none"/>
-      </svg>
-    </div>
-    <span>Acme Inc.</span>
-  </a>
-  <a href="changelog.html" class="version-pill" title="View changelog">v2.14.0</a>
+      <div class="topbar-spacer"></div>
 
-  <div class="topbar-spacer"></div>
+      <button
+        class="btn btn-ghost btn-icon btn-sm theme-toggle"
+        id="themeToggle"
+        aria-label="Toggle theme"
+        title="Toggle theme"
+      >
+        <svg class="icon icon-sm theme-icon-light" viewBox="0 0 24 24">
+          <circle cx="12" cy="12" r="4" />
+          <path
+            d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"
+          />
+        </svg>
+        <svg class="icon icon-sm theme-icon-dark" viewBox="0 0 24 24">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79Z" />
+        </svg>
+      </button>
+      <button class="btn btn-outline btn-sm hide-mobile">Share</button>
+      <button class="btn btn-primary btn-sm">
+        <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14" /></svg>
+        New
+      </button>
+    </header>
 
-  <button class="btn btn-ghost btn-icon btn-sm theme-toggle" id="themeToggle" aria-label="Toggle theme" title="Toggle theme">
-    <svg class="icon icon-sm theme-icon-light" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
-    <svg class="icon icon-sm theme-icon-dark" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79Z"/></svg>
-  </button>
-  <button class="btn btn-outline btn-sm hide-mobile">Share</button>
-  <button class="btn btn-primary btn-sm">
-    <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>
-    New
-  </button>
-</header>
+    <!-- WORKSPACE -->
+    <div class="workspace" id="workspace">
+      <div class="overlay" id="overlay"></div>
 
-<!-- WORKSPACE -->
-<div class="workspace" id="workspace">
-
-  <div class="overlay" id="overlay"></div>
-
-  <!-- LEFT PANEL -->
-  <aside class="panel-left" id="panelLeft">
-    <div class="panel-hd" id="leftPanelHd" title="Toggle navigation">
-      <span class="panel-hd-title">Navigation</span>
-      <div class="panel-hd-chevron">
-        <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></svg>
-      </div>
-    </div>
-
-    <div class="panel-search-wrap">
-      <input class="panel-search" placeholder="Filter…" />
-    </div>
-
-    <div class="panel-body">
-      <div class="nav-section">
-        <div class="nav-label">Platform</div>
-        <div class="nav-item active">
-          <svg class="icon" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
-          <span class="nav-item-text">Overview</span>
-          <span class="chip nav-badge">3</span>
-        </div>
-        <div class="nav-item">
-          <svg class="icon" viewBox="0 0 24 24"><path d="M3 3v18h18"/><path d="M7 16V9"/><path d="M11 16v-5"/><path d="M15 16v-3"/><path d="M19 16V7"/></svg>
-          <span class="nav-item-text">Dashboard</span>
-        </div>
-        <div class="nav-item">
-          <svg class="icon" viewBox="0 0 24 24"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg>
-          <span class="nav-item-text">Analytics</span>
-        </div>
-        <div class="nav-item">
-          <svg class="icon" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="9" y1="13" x2="15" y2="13"/><line x1="9" y1="17" x2="15" y2="17"/></svg>
-          <span class="nav-item-text">Reports</span>
-          <span class="chip chip-brand nav-badge">New</span>
-        </div>
-      </div>
-
-      <div class="nav-section">
-        <div class="nav-label">Manage</div>
-        <div class="nav-item">
-          <svg class="icon" viewBox="0 0 24 24"><path d="m7.5 4.27 9 5.15"/><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5"/><path d="M12 22V12"/></svg>
-          <span class="nav-item-text">Items</span>
-          <span class="chip nav-badge">142</span>
-        </div>
-        <div class="nav-item nav-indent">
-          <svg class="icon" viewBox="0 0 24 24"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
-          <span class="nav-item-text">All items</span>
-        </div>
-        <div class="nav-item nav-indent">
-          <svg class="icon" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><path d="M10.4 12.6a2 2 0 1 1 3 3L8 21l-4 1 1-4Z"/></svg>
-          <span class="nav-item-text">Drafts</span>
-        </div>
-        <div class="nav-item nav-indent">
-          <svg class="icon" viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="5" rx="1"/><path d="M4 8v11a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8"/><path d="M10 12h4"/></svg>
-          <span class="nav-item-text">Archived</span>
-        </div>
-        <div class="nav-item">
-          <svg class="icon" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-          <span class="nav-item-text">Users</span>
-        </div>
-        <div class="nav-item">
-          <svg class="icon" viewBox="0 0 24 24"><path d="M9 2v6"/><path d="M15 2v6"/><path d="M12 17v5"/><path d="M5 8h14a2 2 0 0 1 2 2v2a7 7 0 0 1-14 0v-2a2 2 0 0 1 2-2Z"/></svg>
-          <span class="nav-item-text">Integrations</span>
-        </div>
-      </div>
-
-      <div class="nav-section">
-        <div class="nav-label">Settings</div>
-        <div class="nav-item">
-          <svg class="icon" viewBox="0 0 24 24"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2Z"/><circle cx="12" cy="12" r="3"/></svg>
-          <span class="nav-item-text">General</span>
-        </div>
-        <div class="nav-item">
-          <svg class="icon" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-          <span class="nav-item-text">Permissions</span>
-        </div>
-        <div class="nav-item">
-          <svg class="icon" viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>
-          <span class="nav-item-text">Billing</span>
-        </div>
-      </div>
-    </div>
-
-  </aside>
-
-  <!-- MAIN -->
-  <main class="main">
-
-    <div class="canvas-area">
-      <div class="canvas">
-        <div class="c-topbar">
-          <div class="c-logo"></div>
-          <div class="c-sk" style="width:88px"></div>
-          <div style="flex:1"></div>
-          <div class="c-sk" style="width:58px"></div>
-          <div class="c-sk-dk" style="width:42px"></div>
-          <div class="c-sk-btn"></div>
-        </div>
-        <div class="c-body">
-          <div class="c-sidenav">
-            <div class="c-nav-row sel"><div class="c-dot"></div><div class="c-lbl"></div></div>
-            <div class="c-nav-row"><div class="c-dot"></div><div class="c-lbl" style="width:60%"></div></div>
-            <div class="c-nav-row"><div class="c-dot"></div><div class="c-lbl" style="width:75%"></div></div>
-            <div class="c-nav-row"><div class="c-dot"></div><div class="c-lbl" style="width:50%"></div></div>
-            <div style="height:var(--sp-4)"></div>
-            <div class="c-nav-row"><div class="c-dot"></div><div class="c-lbl" style="width:65%"></div></div>
-            <div class="c-nav-row"><div class="c-dot"></div><div class="c-lbl" style="width:45%"></div></div>
-            <div class="c-nav-row"><div class="c-dot"></div><div class="c-lbl" style="width:78%"></div></div>
-            <div class="c-nav-row"><div class="c-dot"></div><div class="c-lbl" style="width:55%"></div></div>
-          </div>
-          <div class="c-content">
-            <div class="c-title-ph"></div>
-            <div class="c-cards">
-              <div class="c-card hl"><div class="ck-top"></div><div class="ck-bot"></div></div>
-              <div class="c-card"><div class="ck-top" style="width:60%"></div><div class="ck-bot" style="width:50%"></div></div>
-              <div class="c-card"><div class="ck-top" style="width:45%"></div><div class="ck-bot" style="width:55%"></div></div>
-              <div class="c-card"><div class="ck-top" style="width:70%"></div><div class="ck-bot" style="width:42%"></div></div>
-            </div>
-            <div class="c-table">
-              <div class="c-thead">
-                <div class="c-th-ph" style="width:26%"></div>
-                <div class="c-th-ph" style="width:18%;margin-left:auto"></div>
-                <div class="c-th-ph" style="width:16%;margin-left:var(--sp-6)"></div>
-                <div style="width:80px;margin-left:auto"></div>
-              </div>
-              <div class="c-trow sel">
-                <div class="c-td-ph" style="width:26%"></div>
-                <div class="c-td-ph" style="width:18%;margin-left:auto"></div>
-                <div class="c-td-ph" style="width:16%;margin-left:var(--sp-6)"></div>
-                <div class="c-pill-col"><span class="chip chip-green"><span class="chip-dot"></span>Active</span></div>
-              </div>
-              <div class="c-trow">
-                <div class="c-td-ph" style="width:26%"></div>
-                <div class="c-td-ph" style="width:18%;margin-left:auto"></div>
-                <div class="c-td-ph" style="width:16%;margin-left:var(--sp-6)"></div>
-                <div class="c-pill-col"><span class="chip chip-amber"><span class="chip-dot"></span>Pending</span></div>
-              </div>
-              <div class="c-trow">
-                <div class="c-td-ph" style="width:26%"></div>
-                <div class="c-td-ph" style="width:18%;margin-left:auto"></div>
-                <div class="c-td-ph" style="width:16%;margin-left:var(--sp-6)"></div>
-                <div class="c-pill-col"><span class="chip chip-green"><span class="chip-dot"></span>Active</span></div>
-              </div>
-              <div class="c-trow">
-                <div class="c-td-ph" style="width:26%"></div>
-                <div class="c-td-ph" style="width:18%;margin-left:auto"></div>
-                <div class="c-td-ph" style="width:16%;margin-left:var(--sp-6)"></div>
-                <div class="c-pill-col"><span class="chip chip-red"><span class="chip-dot"></span>Error</span></div>
-              </div>
-              <div class="c-trow">
-                <div class="c-td-ph" style="width:26%"></div>
-                <div class="c-td-ph" style="width:18%;margin-left:auto"></div>
-                <div class="c-td-ph" style="width:16%;margin-left:var(--sp-6)"></div>
-                <div class="c-pill-col"><span class="chip chip-amber"><span class="chip-dot"></span>Pending</span></div>
-              </div>
-            </div>
+      <!-- LEFT PANEL -->
+      <aside class="panel-left" id="panelLeft">
+        <div class="panel-hd" id="leftPanelHd" title="Toggle navigation">
+          <span class="panel-hd-title">Navigation</span>
+          <div class="panel-hd-chevron">
+            <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="m15 18-6-6 6-6" /></svg>
           </div>
         </div>
-      </div>
-    </div>
 
-  </main>
+        <div class="panel-search-wrap">
+          <input class="panel-search" placeholder="Filter…" />
+        </div>
 
-  <!-- RIGHT PANEL -->
-  <aside class="panel-right" id="panelRight">
-    <div class="panel-hd" id="rightPanelHd" title="Toggle inspector">
-      <span class="panel-hd-title">Inspector</span>
-      <div class="panel-hd-chevron">
-        <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></svg>
-      </div>
-    </div>
-
-    <div class="right-tabs">
-      <div class="right-tab active">Details</div>
-      <div class="right-tab">Relations</div>
-      <div class="right-tab">Activity</div>
-    </div>
-
-    <div class="right-body">
-      <div class="right-section">
-        <div class="right-section-title">Properties
-          <svg class="icon icon-xs chev" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg>
-        </div>
-        <div class="field-row"><span class="field-label">Name</span><div class="field-val"><input value="Item #0041" /></div></div>
-        <div class="field-row"><span class="field-label">Status</span><div class="field-val"><input value="Active" /></div></div>
-        <div class="field-row"><span class="field-label">Owner</span><div class="field-val"><input value="Farhan H." /></div></div>
-        <div class="field-row"><span class="field-label">Created</span><div class="field-val"><input value="2025-11-03" /></div></div>
-        <div class="field-row"><span class="field-label">Modified</span><div class="field-val"><input value="2026-04-14" /></div></div>
-      </div>
-      <div class="right-section">
-        <div class="right-section-title">Tags
-          <svg class="icon icon-xs chev" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg>
-        </div>
-        <div class="tag-row">
-          <span class="chip chip-accent">priority</span>
-          <span class="chip chip-brand">Q2</span>
-          <span class="chip chip-outline">transport</span>
-          <span class="chip chip-outline">contract</span>
-          <span class="chip chip-outline">+ Add</span>
-        </div>
-      </div>
-      <div class="right-section">
-        <div class="right-section-title">Metrics
-          <svg class="icon icon-xs chev" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg>
-        </div>
-        <div class="field-row"><span class="field-label">Value</span><div class="field-val"><input value="£48,200" /></div></div>
-        <div class="field-row"><span class="field-label">Delta</span><div class="field-val"><input value="+3.4%" /></div></div>
-        <div class="field-row"><span class="field-label">Period</span><div class="field-val"><input value="P6 2025" /></div></div>
-      </div>
-      <div class="right-section">
-        <div class="right-section-title">Activity
-          <svg class="icon icon-xs chev" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg>
-        </div>
-        <div class="activity-list">
-          <div class="activity-row">
-            <div class="act-dot ac"></div>
-            <div class="act-body">
-              <div class="act-text">Status changed to <strong>Active</strong></div>
-              <div class="act-time">Today 09:41</div>
+        <div class="panel-body">
+          <div class="nav-section">
+            <div class="nav-label">Platform</div>
+            <div class="nav-item active">
+              <svg class="icon" viewBox="0 0 24 24">
+                <rect x="3" y="3" width="7" height="7" rx="1" />
+                <rect x="14" y="3" width="7" height="7" rx="1" />
+                <rect x="3" y="14" width="7" height="7" rx="1" />
+                <rect x="14" y="14" width="7" height="7" rx="1" />
+              </svg>
+              <span class="nav-item-text">Overview</span>
+              <span class="chip nav-badge">3</span>
+            </div>
+            <div class="nav-item">
+              <svg class="icon" viewBox="0 0 24 24">
+                <path d="M3 3v18h18" />
+                <path d="M7 16V9" />
+                <path d="M11 16v-5" />
+                <path d="M15 16v-3" />
+                <path d="M19 16V7" />
+              </svg>
+              <span class="nav-item-text">Dashboard</span>
+            </div>
+            <div class="nav-item">
+              <svg class="icon" viewBox="0 0 24 24">
+                <path d="M3 3v18h18" />
+                <path d="m19 9-5 5-4-4-3 3" />
+              </svg>
+              <span class="nav-item-text">Analytics</span>
+            </div>
+            <div class="nav-item">
+              <svg class="icon" viewBox="0 0 24 24">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                <polyline points="14 2 14 8 20 8" />
+                <line x1="9" y1="13" x2="15" y2="13" />
+                <line x1="9" y1="17" x2="15" y2="17" />
+              </svg>
+              <span class="nav-item-text">Reports</span>
+              <span class="chip chip-brand nav-badge">New</span>
             </div>
           </div>
-          <div class="activity-row">
-            <div class="act-dot br"></div>
-            <div class="act-body">
-              <div class="act-text">Assigned to <strong>Farhan H.</strong></div>
-              <div class="act-time">Yesterday 14:22</div>
+
+          <div class="nav-section">
+            <div class="nav-label">Manage</div>
+            <div class="nav-item">
+              <svg class="icon" viewBox="0 0 24 24">
+                <path d="m7.5 4.27 9 5.15" />
+                <path
+                  d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"
+                />
+                <path d="m3.3 7 8.7 5 8.7-5" />
+                <path d="M12 22V12" />
+              </svg>
+              <span class="nav-item-text">Items</span>
+              <span class="chip nav-badge">142</span>
+            </div>
+            <div class="nav-item nav-indent">
+              <svg class="icon" viewBox="0 0 24 24">
+                <line x1="8" y1="6" x2="21" y2="6" />
+                <line x1="8" y1="12" x2="21" y2="12" />
+                <line x1="8" y1="18" x2="21" y2="18" />
+                <line x1="3" y1="6" x2="3.01" y2="6" />
+                <line x1="3" y1="12" x2="3.01" y2="12" />
+                <line x1="3" y1="18" x2="3.01" y2="18" />
+              </svg>
+              <span class="nav-item-text">All items</span>
+            </div>
+            <div class="nav-item nav-indent">
+              <svg class="icon" viewBox="0 0 24 24">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                <polyline points="14 2 14 8 20 8" />
+                <path d="M10.4 12.6a2 2 0 1 1 3 3L8 21l-4 1 1-4Z" />
+              </svg>
+              <span class="nav-item-text">Drafts</span>
+            </div>
+            <div class="nav-item nav-indent">
+              <svg class="icon" viewBox="0 0 24 24">
+                <rect x="2" y="3" width="20" height="5" rx="1" />
+                <path d="M4 8v11a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8" />
+                <path d="M10 12h4" />
+              </svg>
+              <span class="nav-item-text">Archived</span>
+            </div>
+            <div class="nav-item">
+              <svg class="icon" viewBox="0 0 24 24">
+                <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+                <circle cx="9" cy="7" r="4" />
+                <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
+                <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+              </svg>
+              <span class="nav-item-text">Users</span>
+            </div>
+            <div class="nav-item">
+              <svg class="icon" viewBox="0 0 24 24">
+                <path d="M9 2v6" />
+                <path d="M15 2v6" />
+                <path d="M12 17v5" />
+                <path d="M5 8h14a2 2 0 0 1 2 2v2a7 7 0 0 1-14 0v-2a2 2 0 0 1 2-2Z" />
+              </svg>
+              <span class="nav-item-text">Integrations</span>
             </div>
           </div>
-          <div class="activity-row">
-            <div class="act-dot"></div>
-            <div class="act-body">
-              <div class="act-text">Record created</div>
-              <div class="act-time">3 Nov 2025</div>
+
+          <div class="nav-section">
+            <div class="nav-label">Settings</div>
+            <div class="nav-item">
+              <svg class="icon" viewBox="0 0 24 24">
+                <path
+                  d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2Z"
+                />
+                <circle cx="12" cy="12" r="3" />
+              </svg>
+              <span class="nav-item-text">General</span>
+            </div>
+            <div class="nav-item">
+              <svg class="icon" viewBox="0 0 24 24">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+              </svg>
+              <span class="nav-item-text">Permissions</span>
+            </div>
+            <div class="nav-item">
+              <svg class="icon" viewBox="0 0 24 24">
+                <rect x="2" y="5" width="20" height="14" rx="2" />
+                <line x1="2" y1="10" x2="22" y2="10" />
+              </svg>
+              <span class="nav-item-text">Billing</span>
             </div>
           </div>
         </div>
-      </div>
-    </div>
-  </aside>
+      </aside>
 
-  <div class="right-collapse-tab" id="rightCollapseTab" title="Open inspector">
-    <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></svg>
-  </div>
+      <!-- MAIN -->
+      <main class="main">
+        <div class="canvas-area">
+          <div class="canvas">
+            <div class="c-topbar">
+              <div class="c-logo"></div>
+              <div class="c-sk" style="width: 88px"></div>
+              <div style="flex: 1"></div>
+              <div class="c-sk" style="width: 58px"></div>
+              <div class="c-sk-dk" style="width: 42px"></div>
+              <div class="c-sk-btn"></div>
+            </div>
+            <div class="c-body">
+              <div class="c-sidenav">
+                <div class="c-nav-row sel">
+                  <div class="c-dot"></div>
+                  <div class="c-lbl"></div>
+                </div>
+                <div class="c-nav-row">
+                  <div class="c-dot"></div>
+                  <div class="c-lbl" style="width: 60%"></div>
+                </div>
+                <div class="c-nav-row">
+                  <div class="c-dot"></div>
+                  <div class="c-lbl" style="width: 75%"></div>
+                </div>
+                <div class="c-nav-row">
+                  <div class="c-dot"></div>
+                  <div class="c-lbl" style="width: 50%"></div>
+                </div>
+                <div style="height: var(--sp-4)"></div>
+                <div class="c-nav-row">
+                  <div class="c-dot"></div>
+                  <div class="c-lbl" style="width: 65%"></div>
+                </div>
+                <div class="c-nav-row">
+                  <div class="c-dot"></div>
+                  <div class="c-lbl" style="width: 45%"></div>
+                </div>
+                <div class="c-nav-row">
+                  <div class="c-dot"></div>
+                  <div class="c-lbl" style="width: 78%"></div>
+                </div>
+                <div class="c-nav-row">
+                  <div class="c-dot"></div>
+                  <div class="c-lbl" style="width: 55%"></div>
+                </div>
+              </div>
+              <div class="c-content">
+                <div class="c-title-ph"></div>
+                <div class="c-cards">
+                  <div class="c-card hl">
+                    <div class="ck-top"></div>
+                    <div class="ck-bot"></div>
+                  </div>
+                  <div class="c-card">
+                    <div class="ck-top" style="width: 60%"></div>
+                    <div class="ck-bot" style="width: 50%"></div>
+                  </div>
+                  <div class="c-card">
+                    <div class="ck-top" style="width: 45%"></div>
+                    <div class="ck-bot" style="width: 55%"></div>
+                  </div>
+                  <div class="c-card">
+                    <div class="ck-top" style="width: 70%"></div>
+                    <div class="ck-bot" style="width: 42%"></div>
+                  </div>
+                </div>
+                <div class="c-table">
+                  <div class="c-thead">
+                    <div class="c-th-ph" style="width: 26%"></div>
+                    <div class="c-th-ph" style="width: 18%; margin-left: auto"></div>
+                    <div class="c-th-ph" style="width: 16%; margin-left: var(--sp-6)"></div>
+                    <div style="width: 80px; margin-left: auto"></div>
+                  </div>
+                  <div class="c-trow sel">
+                    <div class="c-td-ph" style="width: 26%"></div>
+                    <div class="c-td-ph" style="width: 18%; margin-left: auto"></div>
+                    <div class="c-td-ph" style="width: 16%; margin-left: var(--sp-6)"></div>
+                    <div class="c-pill-col">
+                      <span class="chip chip-green"><span class="chip-dot"></span>Active</span>
+                    </div>
+                  </div>
+                  <div class="c-trow">
+                    <div class="c-td-ph" style="width: 26%"></div>
+                    <div class="c-td-ph" style="width: 18%; margin-left: auto"></div>
+                    <div class="c-td-ph" style="width: 16%; margin-left: var(--sp-6)"></div>
+                    <div class="c-pill-col">
+                      <span class="chip chip-amber"><span class="chip-dot"></span>Pending</span>
+                    </div>
+                  </div>
+                  <div class="c-trow">
+                    <div class="c-td-ph" style="width: 26%"></div>
+                    <div class="c-td-ph" style="width: 18%; margin-left: auto"></div>
+                    <div class="c-td-ph" style="width: 16%; margin-left: var(--sp-6)"></div>
+                    <div class="c-pill-col">
+                      <span class="chip chip-green"><span class="chip-dot"></span>Active</span>
+                    </div>
+                  </div>
+                  <div class="c-trow">
+                    <div class="c-td-ph" style="width: 26%"></div>
+                    <div class="c-td-ph" style="width: 18%; margin-left: auto"></div>
+                    <div class="c-td-ph" style="width: 16%; margin-left: var(--sp-6)"></div>
+                    <div class="c-pill-col">
+                      <span class="chip chip-red"><span class="chip-dot"></span>Error</span>
+                    </div>
+                  </div>
+                  <div class="c-trow">
+                    <div class="c-td-ph" style="width: 26%"></div>
+                    <div class="c-td-ph" style="width: 18%; margin-left: auto"></div>
+                    <div class="c-td-ph" style="width: 16%; margin-left: var(--sp-6)"></div>
+                    <div class="c-pill-col">
+                      <span class="chip chip-amber"><span class="chip-dot"></span>Pending</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
 
-</div>
+      <!-- RIGHT PANEL -->
+      <aside class="panel-right" id="panelRight">
+        <div class="panel-hd" id="rightPanelHd" title="Toggle inspector">
+          <span class="panel-hd-title">Inspector</span>
+          <div class="panel-hd-chevron">
+            <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6" /></svg>
+          </div>
+        </div>
 
-<!-- APP FOOTER -->
-<footer class="app-footer">
-  <a href="#about">About</a>
-  <span class="footer-sep"></span>
-  <a href="changelog.html">Changelog</a>
-  <span class="footer-sep"></span>
-  <a href="#docs">Docs</a>
-  <span class="footer-sep"></span>
-  <a href="#privacy">Privacy</a>
-  <span class="footer-spacer"></span>
-  <span class="footer-meta">All systems operational</span>
-  <span class="footer-sep"></span>
-  <span>Built by <a href="#farhan" style="display:inline">Farhan</a></span>
-</footer>
+        <div class="right-tabs">
+          <div class="right-tab active">Details</div>
+          <div class="right-tab">Relations</div>
+          <div class="right-tab">Activity</div>
+        </div>
 
-<!-- MOBILE NAV BAR -->
-<nav class="mobile-nav">
-  <div class="mobile-nav-items">
-    <div class="mobile-nav-item active" id="mobileNavMain">
-      <div class="mobile-nav-icon">
-        <svg class="icon" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
-      </div>
-      Home
-    </div>
-    <div class="mobile-nav-item" id="mobileNavLeft">
-      <div class="mobile-nav-icon">
-        <svg class="icon" viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
-      </div>
-      Menu
-    </div>
-    <div class="mobile-nav-item brand-item" id="mobileNavNew">
-      <div class="mobile-nav-icon">
-        <svg class="icon" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>
-      </div>
-      New
-    </div>
-    <div class="mobile-nav-item" id="mobileNavRight">
-      <div class="mobile-nav-icon">
-        <svg class="icon" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M15 3v18"/></svg>
-      </div>
-      Details
-    </div>
-    <div class="mobile-nav-item" id="mobileNavSearch">
-      <div class="mobile-nav-icon">
-        <svg class="icon" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
-      </div>
-      Search
-    </div>
-  </div>
-</nav>
+        <div class="right-body">
+          <div class="right-section">
+            <div class="right-section-title">
+              Properties
+              <svg class="icon icon-xs chev" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6" /></svg>
+            </div>
+            <div class="field-row">
+              <span class="field-label">Name</span>
+              <div class="field-val"><input value="Item #0041" /></div>
+            </div>
+            <div class="field-row">
+              <span class="field-label">Status</span>
+              <div class="field-val"><input value="Active" /></div>
+            </div>
+            <div class="field-row">
+              <span class="field-label">Owner</span>
+              <div class="field-val"><input value="Farhan M." /></div>
+            </div>
+            <div class="field-row">
+              <span class="field-label">Created</span>
+              <div class="field-val"><input value="2025-11-03" /></div>
+            </div>
+            <div class="field-row">
+              <span class="field-label">Modified</span>
+              <div class="field-val"><input value="2026-04-14" /></div>
+            </div>
+          </div>
+          <div class="right-section">
+            <div class="right-section-title">
+              Tags
+              <svg class="icon icon-xs chev" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6" /></svg>
+            </div>
+            <div class="tag-row">
+              <span class="chip chip-accent">priority</span>
+              <span class="chip chip-brand">Q2</span>
+              <span class="chip chip-outline">transport</span>
+              <span class="chip chip-outline">contract</span>
+              <span class="chip chip-outline">+ Add</span>
+            </div>
+          </div>
+          <div class="right-section">
+            <div class="right-section-title">
+              Metrics
+              <svg class="icon icon-xs chev" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6" /></svg>
+            </div>
+            <div class="field-row">
+              <span class="field-label">Value</span>
+              <div class="field-val"><input value="£48,200" /></div>
+            </div>
+            <div class="field-row">
+              <span class="field-label">Delta</span>
+              <div class="field-val"><input value="+3.4%" /></div>
+            </div>
+            <div class="field-row">
+              <span class="field-label">Period</span>
+              <div class="field-val"><input value="P6 2025" /></div>
+            </div>
+          </div>
+          <div class="right-section">
+            <div class="right-section-title">
+              Activity
+              <svg class="icon icon-xs chev" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6" /></svg>
+            </div>
+            <div class="activity-list">
+              <div class="activity-row">
+                <div class="act-dot ac"></div>
+                <div class="act-body">
+                  <div class="act-text">Status changed to <strong>Active</strong></div>
+                  <div class="act-time">Today 09:41</div>
+                </div>
+              </div>
+              <div class="activity-row">
+                <div class="act-dot br"></div>
+                <div class="act-body">
+                  <div class="act-text">Assigned to <strong>Farhan M.</strong></div>
+                  <div class="act-time">Yesterday 14:22</div>
+                </div>
+              </div>
+              <div class="activity-row">
+                <div class="act-dot"></div>
+                <div class="act-body">
+                  <div class="act-text">Record created</div>
+                  <div class="act-time">3 Nov 2025</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </aside>
 
-<script src="js/app.js" defer></script>
-</body>
+      <div class="right-collapse-tab" id="rightCollapseTab" title="Open inspector">
+        <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="m15 18-6-6 6-6" /></svg>
+      </div>
+    </div>
+
+    <!-- APP FOOTER -->
+    <footer class="app-footer">
+      <a href="#about">About</a>
+      <span class="footer-sep"></span>
+      <a href="changelog.html">Changelog</a>
+      <span class="footer-sep"></span>
+      <a href="#docs">Docs</a>
+      <span class="footer-sep"></span>
+      <a href="#privacy">Privacy</a>
+      <span class="footer-spacer"></span>
+      <span class="footer-meta">All systems operational</span>
+      <span class="footer-sep"></span>
+      <span>Built by <a href="#farhan" style="display: inline">Farhan</a></span>
+    </footer>
+
+    <!-- MOBILE NAV BAR -->
+    <nav class="mobile-nav">
+      <div class="mobile-nav-items">
+        <div class="mobile-nav-item active" id="mobileNavMain">
+          <div class="mobile-nav-icon">
+            <svg class="icon" viewBox="0 0 24 24">
+              <rect x="3" y="3" width="7" height="7" rx="1" />
+              <rect x="14" y="3" width="7" height="7" rx="1" />
+              <rect x="3" y="14" width="7" height="7" rx="1" />
+              <rect x="14" y="14" width="7" height="7" rx="1" />
+            </svg>
+          </div>
+          Home
+        </div>
+        <div class="mobile-nav-item" id="mobileNavLeft">
+          <div class="mobile-nav-icon">
+            <svg class="icon" viewBox="0 0 24 24">
+              <line x1="3" y1="6" x2="21" y2="6" />
+              <line x1="3" y1="12" x2="21" y2="12" />
+              <line x1="3" y1="18" x2="21" y2="18" />
+            </svg>
+          </div>
+          Menu
+        </div>
+        <div class="mobile-nav-item brand-item" id="mobileNavNew">
+          <div class="mobile-nav-icon">
+            <svg class="icon" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14" /></svg>
+          </div>
+          New
+        </div>
+        <div class="mobile-nav-item" id="mobileNavRight">
+          <div class="mobile-nav-icon">
+            <svg class="icon" viewBox="0 0 24 24">
+              <rect x="3" y="3" width="18" height="18" rx="2" />
+              <path d="M15 3v18" />
+            </svg>
+          </div>
+          Details
+        </div>
+        <div class="mobile-nav-item" id="mobileNavSearch">
+          <div class="mobile-nav-icon">
+            <svg class="icon" viewBox="0 0 24 24">
+              <circle cx="11" cy="11" r="8" />
+              <path d="m21 21-4.3-4.3" />
+            </svg>
+          </div>
+          Search
+        </div>
+      </div>
+    </nav>
+
+    <script src="js/app.js" defer></script>
+  </body>
 </html>

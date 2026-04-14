@@ -42,13 +42,13 @@ All tokens live at the top of `css/app.css` in `:root`, split into two clearly-l
 
 ```css
 :root {
-  --primary:   240 5.9% 10%;     /* brand surface (HSL triplet, no hsl() wrapper) */
+  --primary: 240 5.9% 10%; /* brand surface (HSL triplet, no hsl() wrapper) */
   --primary-foreground: 0 0% 98%;
-  --accent:    240 4.8% 95.9%;
-  --info:      217 91% 50%;      /* links, focus highlights */
-  --font-sans: 'Geist', ui-sans-serif, system-ui, sans-serif;
-  --font-mono: 'Geist Mono', ui-monospace, monospace;
-  --radius:    0.5rem;
+  --accent: 240 4.8% 95.9%;
+  --info: 217 91% 50%; /* links, focus highlights */
+  --font-sans: "Geist", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "Geist Mono", ui-monospace, monospace;
+  --radius: 0.5rem;
 }
 ```
 
@@ -115,16 +115,16 @@ Consistent set of links: **About · Changelog · Docs · Privacy** on the left, 
 
 Use these. Do not make new ones unless nothing fits.
 
-| Primitive | Classes | Usage |
-| --- | --- | --- |
-| Button | `.btn` + `.btn-primary` \| `.btn-outline` \| `.btn-ghost`, modifiers `.btn-sm`, `.btn-icon` | Always use `<button>` or `<a>` with these classes. Works identically on anchors. |
-| Chip / badge | `.chip` + `.chip-accent` \| `.chip-brand` \| `.chip-green` \| `.chip-amber` \| `.chip-red` \| `.chip-outline` | Use `.chip-dot` inside for a leading status dot. |
-| Icon button | `.icon-btn` | 26×26 square, muted hover. |
-| Input / field | `.field-row` + `.field-label` + `.field-val` with an `<input>` inside | Focus ring uses `--ring`. |
-| Avatar | `.avatar` (topbar stacks) \| `.user-avatar` (panel footer) \| `.cl-author-avatar` (changelog) | Always a 2-letter uppercase initial. |
-| Version pill | `.version-pill` | Always an anchor to `changelog.html`. |
-| Nav item | `.nav-item` (+ `.active`, `.nav-indent`) | Inside `.nav-section` with a `.nav-label` header. |
-| Icon | `<svg class="icon">` — always Lucide-style, 1.5/2px stroke, `currentColor` fill: none. | Sizes: `.icon` (16), `.icon-sm` (14), `.icon-xs` (12). |
+| Primitive     | Classes                                                                                                       | Usage                                                                            |
+| ------------- | ------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- |
+| Button        | `.btn` + `.btn-primary` \| `.btn-outline` \| `.btn-ghost`, modifiers `.btn-sm`, `.btn-icon`                   | Always use `<button>` or `<a>` with these classes. Works identically on anchors. |
+| Chip / badge  | `.chip` + `.chip-accent` \| `.chip-brand` \| `.chip-green` \| `.chip-amber` \| `.chip-red` \| `.chip-outline` | Use `.chip-dot` inside for a leading status dot.                                 |
+| Icon button   | `.icon-btn`                                                                                                   | 26×26 square, muted hover.                                                       |
+| Input / field | `.field-row` + `.field-label` + `.field-val` with an `<input>` inside                                         | Focus ring uses `--ring`.                                                        |
+| Avatar        | `.avatar` (topbar stacks) \| `.user-avatar` (panel footer) \| `.cl-author-avatar` (changelog)                 | Always a 2-letter uppercase initial.                                             |
+| Version pill  | `.version-pill`                                                                                               | Always an anchor to `changelog.html`.                                            |
+| Nav item      | `.nav-item` (+ `.active`, `.nav-indent`)                                                                      | Inside `.nav-section` with a `.nav-label` header.                                |
+| Icon          | `<svg class="icon">` — always Lucide-style, 1.5/2px stroke, `currentColor` fill: none.                        | Sizes: `.icon` (16), `.icon-sm` (14), `.icon-xs` (12).                           |
 
 ---
 
@@ -138,14 +138,14 @@ Always Lucide-style inline SVG. Consistent stroke width (2px), `stroke-linecap: 
 
 `js/app.js` is an IIFE that exposes `window.AppShell` with six modules:
 
-| Module | Responsibility |
-| --- | --- |
-| `Drawer` | Mobile off-canvas for left/right panels, overlay, body scroll-lock. |
-| `Panels` | Desktop collapse/expand for left, right, bottom panels. |
-| `Tabs` | Generic tab switcher for any declared group. Extend by pushing to `Tabs.groups`. |
-| `Nav` | Sidebar `.nav-item` active state. |
-| `MobileNav` | Bottom nav bar wiring (5 items: Home / Menu / New / Details / Search). |
-| `Theme` | Light/dark toggle, persists to `localStorage` under `app-theme`. |
+| Module      | Responsibility                                                                   |
+| ----------- | -------------------------------------------------------------------------------- |
+| `Drawer`    | Mobile off-canvas for left/right panels, overlay, body scroll-lock.              |
+| `Panels`    | Desktop collapse/expand for left, right, bottom panels.                          |
+| `Tabs`      | Generic tab switcher for any declared group. Extend by pushing to `Tabs.groups`. |
+| `Nav`       | Sidebar `.nav-item` active state.                                                |
+| `MobileNav` | Bottom nav bar wiring (5 items: Home / Menu / New / Details / Search).           |
+| `Theme`     | Light/dark toggle, persists to `localStorage` under `app-theme`.                 |
 
 Each module silently no-ops when its target elements aren't present, so the same bundle works on the main app and on lightweight pages. To add interactivity, either extend an existing module or add a new one to the `boot()` list — never inline a `<script>` block in a page.
 
@@ -157,9 +157,9 @@ Every page must include the pre-paint inline script in `<head>`:
 <script>
   (function () {
     try {
-      var stored = localStorage.getItem('app-theme');
-      var theme = stored || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
-      document.documentElement.setAttribute('data-theme', theme);
+      var stored = localStorage.getItem("app-theme");
+      var theme = stored || (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+      document.documentElement.setAttribute("data-theme", theme);
     } catch (_) {}
   })();
 </script>
@@ -187,7 +187,7 @@ This prevents flash of incorrect theme. Do not remove it.
 
 Official shadcn dark palette on `[data-theme="dark"]`. All downstream tokens resolve via `var()` references, so every component tracks the theme automatically. Per-component dark overrides exist only for the few hard-coded colours (canvas dot-grid, changelog hero background, a handful of border-2/text-3 aliases).
 
-Adding new components: use tokens everywhere and dark mode will generally just work. Only add a `[data-theme="dark"]` override when you need a component to *change* visually, not merely invert.
+Adding new components: use tokens everywhere and dark mode will generally just work. Only add a `[data-theme="dark"]` override when you need a component to _change_ visually, not merely invert.
 
 ---
 
@@ -204,6 +204,7 @@ Adding new components: use tokens everywhere and dark mode will generally just w
 ## Do / Don't
 
 **Do**
+
 - Use tokens for every colour, spacing, radius, font-size, shadow.
 - Compose from existing primitives.
 - Keep the topbar lean (logo + version + theme + ≤2 CTAs).
@@ -211,6 +212,7 @@ Adding new components: use tokens everywhere and dark mode will generally just w
 - Respect reduced-motion where animations exceed 200ms.
 
 **Don't**
+
 - Hard-code hex codes, pixel radii, bare `vh`, or font-families outside `:root`.
 - Inline styles beyond the existing `style="background:#..."` swatches on per-instance avatars.
 - Add inline `<script>` or `<style>` blocks beyond the pre-paint theme bootstrap.
