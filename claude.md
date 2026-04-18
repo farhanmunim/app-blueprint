@@ -1,220 +1,376 @@
-# CLAUDE.md — Web App Blueprint
-
-This file is the single source of truth for every app built on top of this blueprint. Web apps, dashboards, admin panels, internal tools — whatever category — must start from this shell and adapt within the rules below. The goal is one consistent look and feel across every future project. Colours, icons, typography, and copy can change per project; **layout, spacing, primitives, and interaction patterns cannot**.
-
-When in doubt, refer back to this file. Do not invent new patterns when an existing one fits.
+# CLAUDE.md
 
 ---
 
-## Philosophy
+## 0. Rule Priority
 
-This is a **shell + design system**, not a page-builder or component library. The shell defines:
+If rules conflict, follow this order:
 
-- A fixed app chrome: topbar, left panel (nav), centre canvas (main), right panel (inspector), bottom panel (console), app footer, mobile bottom-nav.
-- A token-first CSS system where every value traces back to a named variable.
-- Collapsible panels on desktop, off-canvas drawers on mobile, with a unified animation language.
-- A neutral shadcn-aligned aesthetic that works for any app category.
-- Light and dark themes out of the box.
-
-The canvas area is intentionally blank — that's where your app-specific content goes. Everything else is reusable shell.
-
----
-
-## File structure
-
-```
-/
-├── index.html          Main app page (full shell: topbar + panels + canvas + footer + mobile-nav)
-├── changelog.html      Content page pattern (topbar + main + footer only; no panels)
-├── css/app.css         Single stylesheet. Tokens → base → primitives → shell → pages → responsive → dark.
-└── js/app.js           Single modular controller. Auto-inits; silently no-ops when target elements are absent.
-```
-
-**Never inline more than a handful of lines of CSS or JS in an HTML file.** The only inline script allowed is the pre-paint theme bootstrap in `<head>`.
+1. Security & data integrity
+2. Git safety
+3. Architecture (API, data, pipelines)
+4. Runtime behaviour
+5. UI implementation
+6. Styling
 
 ---
 
-## Design tokens
+## 1. Project Overview
 
-All tokens live at the top of `css/app.css` in `:root`, split into two clearly-labelled sections:
+App Blueprint is an open-source, pixel-perfect web app wireframe that demonstrates a
+realistic SaaS-style interface — sidebar navigation, data tables, inspector panel,
+command palette, status badges, and responsive mobile shell. It serves as a reference
+implementation and starting point for building production-quality dashboard UIs. Hosted
+at `app-blueprint.farhan.app`.
 
-### 1. THEME (override these to re-skin)
+---
 
-```css
-:root {
-  --primary: 240 5.9% 10%; /* brand surface (HSL triplet, no hsl() wrapper) */
-  --primary-foreground: 0 0% 98%;
-  --accent: 240 4.8% 95.9%;
-  --info: 217 91% 50%; /* links, focus highlights */
-  --font-sans: "Geist", ui-sans-serif, system-ui, sans-serif;
-  --font-mono: "Geist Mono", ui-monospace, monospace;
-  --radius: 0.5rem;
-}
+## 2. Stack & Hosting
+
+Vanilla HTML · CSS · JS · Cloudflare Pages · GitHub
+
+---
+
+## 3. Local Dev
+
+Port: `8080` — do not change between sessions.
+
+```bash
+# Any static server works — no build step
+npx serve . -l 8080
 ```
 
-To reskin a project, override these on `:root` in that project's copy of `app.css` (or in a `<style>` block in its HTML). Never hard-code colours, radii, or font families anywhere else.
+---
 
-### 2. DERIVED TOKENS (generally don't edit)
+## 4. Project Rules & Overrides
 
-Shadcn neutral palette (background, foreground, card, muted, border, ring, destructive), status colours (success, warning, info), radius scale (`--r-xs … --r-xl`, `--r-pill`), spacing scale (`--sp-1 … --sp-7`), typography scale (`--fs-xs … --fs-xl`), component heights (`--h-btn`, `--h-input`, `--h-nav`, `--h-row`, …), shadows (`--shadow-sm/md/lg`), transitions (`--t-fast`, `--t-panel`), and layout sizes (panel widths, topbar height, bottom panel height).
-
-### Rules
-
-- **Colours are HSL triplets** stored without the `hsl()` wrapper so opacity works: `background: hsl(var(--primary) / 0.15)`.
-- **Every value uses a token.** No magic pixels, no ad-hoc hex codes. If a token doesn't exist for your need, add one to the appropriate section rather than hard-coding.
-- **Radius ladder**: `--r-xs` (2px) → `--r-sm` (4px) → `--r-md` (6px) → `--r-lg` (8px, default) → `--r-xl` (12px) → `--r-pill` (fully round). Changing `--radius` rescales the whole ladder.
-- **Spacing ladder**: `--sp-1 … --sp-7` (4 / 6 / 8 / 10 / 12 / 16 / 20). Use these for gaps, paddings, margins. Inline decimal pixels are forbidden.
+- No bundler, no framework — everything is vanilla HTML/CSS/JS. Keep it that way.
+- No npm dependencies in production. Dev-only tools (e.g. Puppeteer for screenshots)
+  are acceptable.
+- The app is a static wireframe / UI reference — there is no backend, no API, no
+  real data. All content is hardcoded placeholder data (Acme Inc., sample records,
+  mock activity feed, etc.).
+- The changelog at `changelog.html` is a standalone page styled to match the app.
+  It documents feature-level changes and lists contributor avatars per entry.
+- The "Acme Inc." branding is intentional placeholder — do not replace it with
+  real company names.
+- Analytics: not configured — ask before adding.
 
 ---
 
-## Shell layout
+## 5. Watch Out For
 
-```
-┌──────────────────────────────────────────────────────────┐
-│  topbar (52px)       [logo][version] … [theme][Share][+] │
-├──────────┬─────────────────────────────────┬─────────────┤
-│          │  canvas-toolbar (44px)          │             │
-│          ├─────────────────────────────────┤             │
-│  left    │                                 │   right     │
-│  panel   │  canvas-area                    │   panel     │
-│  (240px) │  (main app content)             │   (300px)   │
-│          │                                 │             │
-│          ├─────────────────────────────────┤             │
-│          │  bottom panel (200px, clamp dvh)│             │
-├──────────┴─────────────────────────────────┴─────────────┤
-│  app-footer (32px; wraps on mobile)                      │
-└──────────────────────────────────────────────────────────┘
-
-Mobile (≤640px):
-  • left & right panels become off-canvas drawers (86vw, max 320/340px)
-  • bottom panel hidden, replaced by 5-item mobile-nav
-  • footer sits BELOW the mobile-nav (flex order)
-```
-
-### Topbar (every page)
-
-- Always: logo (link to `index.html`) + version-pill (link to `changelog.html`) on the left.
-- Always: theme toggle on the right, followed by page-specific CTAs.
-- Primary action uses `.btn-primary`, secondary `.btn-outline`, tertiary `.btn-ghost`.
-- Never more than three buttons on the right. Mark non-critical ones with `.hide-mobile`.
-- No breadcrumbs, search, avatars, or notifications unless the project genuinely needs them — default is lean.
-
-### Footer (every page)
-
-Consistent set of links: **About · Changelog · Docs · Privacy** on the left, system status + "Built by Farhan" on the right. Never hidden on mobile — it wraps to multi-line and sits below the mobile-nav on pages that have one.
-
-### Panels (main app pages only)
-
-- Click the panel header or chevron to collapse / expand on desktop.
-- On mobile, header click closes the drawer; the mobile-nav opens/closes drawers.
-- Bottom panel collapses to just its tab bar.
+- **Mobile shell**: The mobile layout uses an off-canvas drawer and a five-tab bottom
+  nav bar. Changes to the sidebar or nav structure must be tested on both desktop and
+  mobile breakpoints — easy to break one while editing the other.
+- **Inspector panel**: The right-side inspector panel is toggled by a slim tab. It has
+  three sub-tabs (Details, Relations, Activity) — make sure tab switching and panel
+  toggle both work after any layout changes.
+- **Command palette** (`⌘K`): Keyboard shortcut listener is global. Be careful not to
+  shadow it when adding new keyboard interactions.
+- **Status badges**: Colour-coded (Active/Pending/Error) — these use CSS custom
+  properties. Don't hardcode colours.
+- **CSS tokens**: All repeating values (colours, spacing, radii, shadows) should live
+  in `:root`. Never introduce a raw hex/rgb value outside the token system.
+- **Dark mode**: If a dark mode toggle exists or is added, it must be token-driven from
+  day one — never bolt on with overrides.
+- **changelog.html vs CHANGELOG.md**: These are separate things. `changelog.html` is
+  user-facing and styled. `CHANGELOG.md` is internal dev log (gitignored).
 
 ---
 
-## Component primitives
+---
 
-Use these. Do not make new ones unless nothing fits.
-
-| Primitive     | Classes                                                                                                       | Usage                                                                            |
-| ------------- | ------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- |
-| Button        | `.btn` + `.btn-primary` \| `.btn-outline` \| `.btn-ghost`, modifiers `.btn-sm`, `.btn-icon`                   | Always use `<button>` or `<a>` with these classes. Works identically on anchors. |
-| Chip / badge  | `.chip` + `.chip-accent` \| `.chip-brand` \| `.chip-green` \| `.chip-amber` \| `.chip-red` \| `.chip-outline` | Use `.chip-dot` inside for a leading status dot.                                 |
-| Icon button   | `.icon-btn`                                                                                                   | 26×26 square, muted hover.                                                       |
-| Input / field | `.field-row` + `.field-label` + `.field-val` with an `<input>` inside                                         | Focus ring uses `--ring`.                                                        |
-| Avatar        | `.avatar` (topbar stacks) \| `.user-avatar` (panel footer) \| `.cl-author-avatar` (changelog)                 | Always a 2-letter uppercase initial.                                             |
-| Version pill  | `.version-pill`                                                                                               | Always an anchor to `changelog.html`.                                            |
-| Nav item      | `.nav-item` (+ `.active`, `.nav-indent`)                                                                      | Inside `.nav-section` with a `.nav-label` header.                                |
-| Icon          | `<svg class="icon">` — always Lucide-style, 1.5/2px stroke, `currentColor` fill: none.                        | Sizes: `.icon` (16), `.icon-sm` (14), `.icon-xs` (12).                           |
+# General Standards
 
 ---
 
-## Icons
-
-Always Lucide-style inline SVG. Consistent stroke width (2px), `stroke-linecap: round`, `stroke-linejoin: round`, `fill: none`, colour via `currentColor`. Do **not** mix icon sets. Do **not** use emoji as icons.
+# Git & Versioning
 
 ---
 
-## JavaScript framework
+## 6. Git Identity (STRICT)
 
-`js/app.js` is an IIFE that exposes `window.AppShell` with six modules:
+- Always use: Name `Farhan` · Email `auth@farhan.app`
+- Verify with `git config user.name` / `git config user.email` before first commit.
+- Never commit as Claude, add co-author lines, or mention AI in commits or metadata.
+- Use imperative commit messages (e.g. "Add caching layer for API responses").
 
-| Module      | Responsibility                                                                   |
-| ----------- | -------------------------------------------------------------------------------- |
-| `Drawer`    | Mobile off-canvas for left/right panels, overlay, body scroll-lock.              |
-| `Panels`    | Desktop collapse/expand for left, right, bottom panels.                          |
-| `Tabs`      | Generic tab switcher for any declared group. Extend by pushing to `Tabs.groups`. |
-| `Nav`       | Sidebar `.nav-item` active state.                                                |
-| `MobileNav` | Bottom nav bar wiring (5 items: Home / Menu / New / Details / Search).           |
-| `Theme`     | Light/dark toggle, persists to `localStorage` under `app-theme`.                 |
+---
 
-Each module silently no-ops when its target elements aren't present, so the same bundle works on the main app and on lightweight pages. To add interactivity, either extend an existing module or add a new one to the `boot()` list — never inline a `<script>` block in a page.
+## 7. Committing & Pushing (STRICT)
 
-### Theme bootstrap
+- Never commit or push without explicit instruction.
+- State exactly what will be committed and wait for approval before proceeding.
+- Never batch or auto-commit at end of session.
+- Never push to any remote (including `main`) without explicit instruction for that push.
 
-Every page must include the pre-paint inline script in `<head>`:
+---
+
+## 8. .gitignore
+
+Ignore: build artefacts, editor files, OS files (`.DS_Store`, `Thumbs.db`),
+logs, `/screenshots`, `CHANGELOG.md`. Verify no junk files are tracked before committing.
+
+---
+
+## 9. Changelog
+
+- Create `CHANGELOG.md` at project root if missing. Internal use only — gitignore it.
+- Log every meaningful change with a date and short description.
+
+### changelog.html (if the project has one)
+
+- Do not confuse with `CHANGELOG.md`.
+- Only log: new features, major UI changes, notable improvements, major refactors,
+  user-facing bug fixes. Never log minor tweaks, copy changes, or invisible refactors.
+- Tag every entry: **New Feature** · **Improvement** · **Bug Fix** · **Refactor**
+- Plain, professional language. Moderately technical where it adds value.
+- Never update without explicit instruction — always ask first.
+
+---
+
+# Security & Data
+
+---
+
+## 10. Secrets & Environment
+
+- All secrets in `.env` — never hardcoded.
+- `.env` always in `.gitignore`.
+- Always include `.env.example` with key names but no values.
+
+---
+
+## 11. API & Security
+
+- Never call third-party APIs directly from the frontend.
+- Route all external calls through a **Cloudflare Worker proxy**:
+  - API keys in Worker env vars only — never exposed to the browser.
+  - Validate all requests. Reject malformed input early.
+  - Cache responses to reduce upstream load.
+- Rate limit all Worker routes before going live (~100 req/min/IP default).
+  Remind me to configure this before launch.
+- Security headers on all responses: `Content-Security-Policy`, `X-Frame-Options`,
+  `X-Content-Type-Options`, `Referrer-Policy`.
+
+---
+
+## 12. Caching
+
+- Explicit TTLs on all API responses (default 60–300s).
+- Stale-while-revalidate where possible. Never cache sensitive or user-specific data.
+
+---
+
+## 13. Web Scraping
+
+- Server-side only — never expose selectors or scraping logic in client code.
+- Treat all scraped data as untrusted: strip HTML, normalise to UTF-8, trim
+  whitespace, convert to strict types, validate formats.
+- Never inject raw scraped content into the DOM.
+- Use a stable internal schema — do not rely on upstream HTML structure.
+- Cache results (default TTL 5–30 min). Prefer stale over a failed fresh request.
+- Retry max 2 times. Return a safe fallback state on failure.
+- Log failed requests, empty selectors, and validation failures.
+
+---
+
+## 14. Scheduled Pipelines
+
+- Use a scheduled pipeline for data that needs regular refresh
+  (GitHub Actions, cron, or Worker scheduled jobs).
+- Pattern: **Fetch → Clean → Validate → Store → Serve**. Each step isolated.
+- Deterministic and idempotent. No overlapping executions.
+- Never overwrite valid data with invalid results — retain last known good dataset.
+- Use ETag / `If-Modified-Since` where supported. Credentials in env vars only.
+
+---
+
+# Code & Architecture
+
+---
+
+## 15. Technology Defaults
+
+- Default to HTML, CSS, and vanilla JS.
+- Only introduce a library if a well-established solution exists for the problem
+  (e.g. Leaflet for maps, SheetJS for Excel, Chart.js for charts) or the feature
+  complexity genuinely warrants it. Never add a library for convenience.
+- Prefer CDN for libraries on static sites. No bundler unless explicitly required.
+- No npm packages for problems solvable with native browser APIs.
+- Keep dependencies minimal and intentional.
+
+---
+
+## 16. Code Quality
+
+- One responsibility per file or module. Co-locate state, logic, and handlers.
+- If a function does more than one thing, split it.
+- Files: `kebab-case`. No magic numbers — use named constants or tokens.
+- No dead code, unused functions, or commented-out blocks committed.
+- No stray `console.log` unless deliberate and documented.
+- `async/await` only — do not mix with `.then()`.
+
+---
+
+## 17. Error Handling & Fallbacks
+
+- Never fail silently — always show a fallback state or message.
+- Use cached data if live data fails. Never leave empty or broken UI states.
+- Retry transient failures (max 2 attempts with delay).
+
+---
+
+# UI & Frontend
+
+---
+
+## 18. Frontend Design
+
+- Before writing any UI code, read the frontend design skill at
+  `/mnt/skills/public/frontend-design/SKILL.md` and commit to a clear aesthetic
+  direction before touching code.
+- Avoid generic aesthetics: no default system fonts, no purple-gradient-on-white,
+  no cookie-cutter layouts.
+- Use CSS custom properties (tokens) for all repeating values: colours, spacing,
+  typography, radii, shadows, z-indices, breakpoints. Declare all tokens in `:root`.
+- No inline styles — all styling through the token and class system.
+- Use BEM (`block__element--modifier`) for all project-specific CSS class names.
+- Always build in light mode by default with a dark mode toggle, unless explicitly told otherwise. Dark mode must be built into the token system from day one — never bolted on later.
+
+---
+
+## 19. Accessibility
+
+- Semantic HTML throughout. All images must have descriptive `alt` text.
+- Sufficient colour contrast on all text. No JS console errors in production.
+
+---
+
+## 20. Site Metadata (STRICT)
+
+Every web app must include all of the following in `<head>`. No exceptions.
+
+- **Title:** `<title>{App Name} — farhan.app</title>`. The `— farhan.app` suffix
+  is mandatory.
+- **Favicon:** Inline SVG via `data:image/svg+xml,...`. Must match the app's
+  UI logo. If the app renders a logo, the favicon is the same design.
+- **Author:** `<meta name="author" content="farhan.app" />`
+- **Description:** `<meta name="description" content="{one-line description}. Built by Farhan — farhan.app" />`
+
+### Open Graph
 
 ```html
-<script>
-  (function () {
-    try {
-      var stored = localStorage.getItem("app-theme");
-      var theme = stored || (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
-      document.documentElement.setAttribute("data-theme", theme);
-    } catch (_) {}
-  })();
-</script>
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="{App Name}" />
+<meta property="og:title" content="{App Name} — farhan.app" />
+<meta property="og:description" content="{one-line description with key feature highlight}." />
+<meta property="og:url" content="https://farhan.app" />
 ```
 
-This prevents flash of incorrect theme. Do not remove it.
+### Twitter / X
+
+```html
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:title" content="{App Name} — farhan.app" />
+<meta name="twitter:description" content="{one-line description}. Built by Farhan — farhan.app" />
+```
+
+- `{App Name}` and descriptions must reflect the specific app being built.
+- `og:url` always points to `https://farhan.app`.
 
 ---
 
-## Responsive rules
+## 21. Footer & About Modal (STRICT)
 
-- `height: 100dvh` with `100svh` and `100vh` fallbacks on `<body>`. Never use bare `vh` for full-viewport elements.
-- `overscroll-behavior: none` on body; `contain` on drawers.
-- Breakpoints:
-  - **≤900px (tablet)**: hide search + avatar cluster, breadcrumb shrinks to last segment, canvas padding reduces.
-  - **≤640px (mobile)**: show `.mobile-nav`, hide `.panel-bottom`, panels become off-canvas drawers, footer wraps and sits below the mobile-nav, `.hide-mobile` elements disappear, `.version-pill` hides.
-  - **≤380px (small mobile)**: logo text collapses to just the mark, canvas padding minimal.
-- Safe-area insets (`env(safe-area-inset-*)`) applied on topbar, mobile-nav, and footer for iOS notch/home-indicator handling.
-- Bottom panel height is `min(200px, 34dvh)` — it never eats more than a third of the viewport on short screens.
-- Tap targets on mobile nav rows are bumped to 40px.
+Every web app must include a footer and an About modal unless explicitly told
+otherwise.
+
+### Footer
+
+- Persistent, visible on all pages/views.
+- Must contain:
+  - An **"About" trigger** (button or link) that opens the About modal.
+  - A **"Built by [Farhan](https://farhan.app)"** credit line — always links to
+    `https://farhan.app`.
+- If the app has a changelog (`changelog.html`), link to it from the footer.
+- If the app uses live or periodically refreshed data, show the last-updated
+  timestamp and next-update time.
+- Any relevant disclaimers go here as a short inline note
+  (e.g. "Not affiliated with X · Data may be inaccurate").
+
+### About Modal
+
+Triggered from the footer. Must include the following sections in order:
+
+1. **App description** — 2–4 sentences explaining what the app does, who it's
+   for, and what data/sources it uses.
+2. **Disclaimers** — Affiliation disclaimers, data accuracy caveats, or
+   licensing notes relevant to the project.
+3. **GitHub** — Link to the repo if public:
+   `[View on GitHub](https://github.com/farhanshares/{repo-name})`.
+   Omit if the repo is private or doesn't exist yet.
+4. **Developer** — "Built by [Farhan](https://farhan.app)".
+5. **Support CTA** — A line like "If you find this useful, consider
+   [buying me a coffee](https://buymeacoffee.com/farhan)☕" or equivalent.
+   Keep it friendly and non-pushy.
+
+### Implementation notes
+
+- Use a native `<dialog>` element for the modal. No library.
+- The modal must be closable via a close button, the Escape key, and clicking
+  the backdrop.
+- Style the modal consistently with the app's design tokens.
+- Keep content concise — this is a reference panel, not a landing page.
 
 ---
 
-## Dark mode
-
-Official shadcn dark palette on `[data-theme="dark"]`. All downstream tokens resolve via `var()` references, so every component tracks the theme automatically. Per-component dark overrides exist only for the few hard-coded colours (canvas dot-grid, changelog hero background, a handful of border-2/text-3 aliases).
-
-Adding new components: use tokens everywhere and dark mode will generally just work. Only add a `[data-theme="dark"]` override when you need a component to _change_ visually, not merely invert.
+# Shipping
 
 ---
 
-## Adding a new page
+## 22. Pre-Commit Checks
 
-1. Copy the structure of `changelog.html` (for content pages) or `index.html` (for app pages with the full shell).
-2. Include the pre-paint theme script, `<link rel="stylesheet" href="css/app.css">`, and `<script src="js/app.js" defer>`.
-3. Keep the topbar and footer identical in structure and classes to other pages — only the page-specific CTAs change.
-4. Use existing primitives; do not invent. If a genuinely new pattern is needed, add it to `app.css` under the appropriate section (usually `PAGE: <NAME>`), still composed from tokens.
-5. Add any page-specific JS by creating a new module in `app.js` and adding it to `boot()`. Do not add inline scripts.
+- Screenshot at Desktop `1280×800` and Mobile `390×844` using Puppeteer.
+- No console errors before committing.
+- Store screenshots in `/screenshots` (gitignored).
 
 ---
 
-## Do / Don't
+## 23. Production & Pre-Ship
 
-**Do**
+- Minimise DOM updates. Lazy-load non-critical assets. Keep JS lean.
+- No console spam in production.
+- DevTools → Network tab check before shipping: no exposed secrets, no duplicate
+  requests, caching behaves as expected.
+- Test all logic paths including edge cases. For Workers: test invalid inputs,
+  rate limiting, and caching.
 
-- Use tokens for every colour, spacing, radius, font-size, shadow.
-- Compose from existing primitives.
-- Keep the topbar lean (logo + version + theme + ≤2 CTAs).
-- Test at 1440 / 820 / 390 viewports and in both themes before shipping.
-- Respect reduced-motion where animations exceed 200ms.
+---
 
-**Don't**
+## 24. Deployment Checklist
 
-- Hard-code hex codes, pixel radii, bare `vh`, or font-families outside `:root`.
-- Inline styles beyond the existing `style="background:#..."` swatches on per-instance avatars.
-- Add inline `<script>` or `<style>` blocks beyond the pre-paint theme bootstrap.
-- Introduce a new button, input, or badge variant without checking if a primitive already covers it.
-- Break the topbar/footer contract — those must look and behave identically on every page at every breakpoint.
+- [ ] Worker routes correctly configured
+- [ ] Environment variables set in Cloudflare dashboard
+- [ ] Rate limiting enabled
+- [ ] Caching verified
+- [ ] No secrets exposed (Network tab check)
+- [ ] No duplicate or wasteful requests
+- [ ] Security headers applied
+- [ ] Analytics confirmed or explicitly skipped
+- [ ] README up to date
+
+---
+
+## 25. Google Analytics
+
+- Always ask before adding to a new project. Never add without explicit confirmation.
+
+---
+
+## 26. README
+
+Keep `README.md` updated with: project purpose, setup instructions, environment
+variable names (no values), and deployment notes. Source of truth for picking
+the project up cold.

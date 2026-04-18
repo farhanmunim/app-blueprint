@@ -203,7 +203,26 @@
     Nav.init();
     MobileNav.init();
     Theme.init();
+    AboutModal.init();
   }
+
+  const AboutModal = {
+    init() {
+      const dialog = document.getElementById('aboutModal');
+      const trigger = document.getElementById('aboutTrigger');
+      const closeBtn = document.getElementById('aboutClose');
+      if (!dialog || !trigger) return;
+
+      trigger.addEventListener('click', () => {
+        if (typeof dialog.showModal === 'function') dialog.showModal();
+        else dialog.setAttribute('open', '');
+      });
+      closeBtn?.addEventListener('click', () => dialog.close());
+      dialog.addEventListener('click', (e) => {
+        if (e.target === dialog) dialog.close();
+      });
+    },
+  };
 
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', boot);
@@ -212,5 +231,5 @@
   }
 
   // Expose for debugging / future extension
-  window.AppShell = { Drawer, Panels, Tabs, Nav, MobileNav, Theme };
+  window.AppShell = { Drawer, Panels, Tabs, Nav, MobileNav, Theme, AboutModal };
 })();

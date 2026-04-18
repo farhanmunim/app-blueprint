@@ -3,7 +3,31 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>App Wireframe</title>
+    <title>App Blueprint — farhan.app</title>
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M3 3h4v4H3zM9 3h4v4H9zM3 9h4v4H3zM9 9h4v4H9z' fill='%230a0a0a'/%3E%3C/svg%3E"
+    />
+    <meta name="author" content="farhan.app" />
+    <meta
+      name="description"
+      content="Pixel-perfect open-source SaaS dashboard wireframe with sidebar, data tables, inspector panel, and command palette. Built by Farhan — farhan.app"
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="App Blueprint" />
+    <meta property="og:title" content="App Blueprint — farhan.app" />
+    <meta
+      property="og:description"
+      content="Open-source SaaS dashboard wireframe — sidebar, data tables, inspector panel, command palette, responsive mobile shell."
+    />
+    <meta property="og:url" content="https://farhan.app" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="App Blueprint — farhan.app" />
+    <meta
+      name="twitter:description"
+      content="Pixel-perfect open-source SaaS dashboard wireframe. Built by Farhan — farhan.app"
+    />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -454,7 +478,7 @@
 
     <!-- APP FOOTER -->
     <footer class="app-footer">
-      <a href="#about">About</a>
+      <button type="button" class="app-footer__link" id="aboutTrigger">About</button>
       <span class="footer-sep"></span>
       <a href="changelog.html">Changelog</a>
       <span class="footer-sep"></span>
@@ -464,7 +488,7 @@
       <span class="footer-spacer"></span>
       <span class="footer-meta">All systems operational</span>
       <span class="footer-sep"></span>
-      <span>Built by <a href="#farhan" style="display: inline">Farhan</a></span>
+      <span>Built by <a href="https://farhan.app" target="_blank" rel="noopener">Farhan</a></span>
     </footer>
 
     <!-- MOBILE NAV BAR -->
@@ -517,6 +541,53 @@
         </div>
       </div>
     </nav>
+
+    <!-- ABOUT MODAL -->
+    <dialog class="about-modal" id="aboutModal" aria-labelledby="aboutModalTitle">
+      <div class="about-modal__inner">
+        <header class="about-modal__header">
+          <h2 id="aboutModalTitle" class="about-modal__title">About App Blueprint</h2>
+          <button
+            type="button"
+            class="about-modal__close"
+            id="aboutClose"
+            aria-label="Close about dialog"
+          >
+            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M18 6 6 18M6 6l12 12" />
+            </svg>
+          </button>
+        </header>
+        <div class="about-modal__body">
+          <p>
+            App Blueprint is an open-source, pixel-perfect web app wireframe that
+            demonstrates a realistic SaaS-style interface — sidebar navigation, data
+            tables, inspector panel, command palette, and a responsive mobile shell.
+            It's a reference implementation and starting point for building
+            production-quality dashboard UIs.
+          </p>
+          <p class="about-modal__muted">
+            All content is hardcoded placeholder data. "Acme Inc." and the sample
+            records are intentional stand-ins and do not represent a real company.
+          </p>
+          <ul class="about-modal__links">
+            <li>
+              <a href="https://github.com/farhanshares/app-blueprint" target="_blank" rel="noopener"
+                >View on GitHub</a
+              >
+            </li>
+            <li>Built by <a href="https://farhan.app" target="_blank" rel="noopener">Farhan</a></li>
+            <li>
+              If you find this useful, consider
+              <a href="https://buymeacoffee.com/farhan" target="_blank" rel="noopener"
+                >buying me a coffee</a
+              >
+              ☕
+            </li>
+          </ul>
+        </div>
+      </div>
+    </dialog>
 
     <script src="js/app.js" defer></script>
   </body>
