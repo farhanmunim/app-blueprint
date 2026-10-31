@@ -19,9 +19,11 @@ If rules conflict, follow this order:
 
 App Blueprint is an open-source, pixel-perfect web app wireframe that demonstrates a
 realistic SaaS-style interface — sidebar navigation, data tables, inspector panel,
-command palette, status badges, and responsive mobile shell. It serves as a reference
-implementation and starting point for building production-quality dashboard UIs. Hosted
-at `app-blueprint.farhan.app`.
+command palette, status badges, and responsive mobile shell. It serves as the
+reference implementation and design-language basis for **all new web app projects**, so
+keep it generic. Its design language follows the farhan.app UI library
+(`ui-library.farhan.app`) — see `THEMING.md` and `design-system.html`. Hosted at
+`app-blueprint.farhan.app`.
 
 ---
 
@@ -70,10 +72,13 @@ npx serve . -l 8080
   shadow it when adding new keyboard interactions.
 - **Status badges**: Colour-coded (Active/Pending/Error) — these use CSS custom
   properties. Don't hardcode colours.
-- **CSS tokens**: All repeating values (colours, spacing, radii, shadows) should live
-  in `:root`. Never introduce a raw hex/rgb value outside the token system.
-- **Dark mode**: If a dark mode toggle exists or is added, it must be token-driven from
-  day one — never bolt on with overrides.
+- **CSS tokens**: All repeating values (colours, spacing, radii, shadows) live in the
+  token layers (`css/10-tokens.css`, `css/11-theme.css`). Never introduce a raw
+  hex/rgb/hsl value outside them or `css/theme.css`.
+- **Dark mode**: Token-driven, ships with light from day one — never bolt on with
+  overrides. Components use semantic tokens only, so both themes work automatically.
+- **Design system page**: `design-system.html` is the living reference. When adding or
+  changing a primitive in `css/30-primitives.css`, update its specimen there too.
 - **changelog.html vs CHANGELOG.md**: These are separate things. `changelog.html` is
   user-facing and styled. `CHANGELOG.md` is internal dev log (gitignored).
 
@@ -197,7 +202,7 @@ logs, `/screenshots`, `CHANGELOG.md`. Verify no junk files are tracked before co
 - Only introduce a library if a well-established solution exists for the problem
   (e.g. Leaflet for maps, SheetJS for Excel, Chart.js for charts) or the feature
   complexity genuinely warrants it. Never add a library for convenience.
-- Prefer CDN for libraries on static sites. No bundler unless explicitly required.
+- Prefer CDN for libraries on static sites. Fonts are self-hosted (`fonts/`), never a third-party request. No bundler unless explicitly required.
 - No npm packages for problems solvable with native browser APIs.
 - Keep dependencies minimal and intentional.
 
@@ -234,10 +239,15 @@ logs, `/screenshots`, `CHANGELOG.md`. Verify no junk files are tracked before co
 - Avoid generic aesthetics: no default system fonts, no purple-gradient-on-white,
   no cookie-cutter layouts.
 - Use CSS custom properties (tokens) for all repeating values: colours, spacing,
-  typography, radii, shadows, z-indices, breakpoints. Declare all tokens in `:root`.
+  typography, radii, shadows, z-indices. Tokens are declared in `css/10-tokens.css` and
+  `css/11-theme.css`; project overrides go in the un-layered `css/theme.css`.
+- Follow the UI library design language: Geist + JetBrains Mono (self-hosted), neutral
+  accent, hairline borders, mono eyebrows/metadata, soft motion. Reuse primitives before
+  inventing new styles.
 - No inline styles — all styling through the token and class system.
 - Use BEM (`block__element--modifier`) for all project-specific CSS class names.
-- Always build in light mode by default with a dark mode toggle, unless explicitly told otherwise. Dark mode must be built into the token system from day one — never bolted on later.
+- Always ship a light/dark toggle. Default theme is dark (matches the UI library), falling
+  back to light only when the OS asks for it; the saved choice wins. Dark mode must be built into the token system from day one — never bolted on later.
 
 ---
 

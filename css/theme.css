@@ -1,0 +1,7 @@
+/* Project theme overrides — loaded last and un-layered, so anything here beats
+   the blueprint. See THEMING.md. Examples:
+
+   :root { --radius-scale: .6; --space-unit: 3.5px; }
+   [data-theme="dark"]  { --accent: #7dd3fc; --on-accent: #0b1220; }
+   [data-theme="light"] { --accent: #0369a1; --on-accent: #ffffff; }
+*/

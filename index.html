@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-theme="dark">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -7,7 +7,7 @@
     <link
       rel="icon"
       type="image/svg+xml"
-      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M3 3h4v4H3zM9 3h4v4H9zM3 9h4v4H3zM9 9h4v4H9z' fill='%230a0a0a'/%3E%3C/svg%3E"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' rx='4' fill='%23f5f5f5'/%3E%3Cpath d='M4 4h3v3H4zM9 4h3v3H9zM4 9h3v3H4zM9 9h3v3H9z' fill='%23151515'/%3E%3C/svg%3E"
     />
     <meta name="author" content="farhan.app" />
     <meta
@@ -28,20 +28,26 @@
       name="twitter:description"
       content="Pixel-perfect open-source SaaS dashboard wireframe. Built by Farhan — farhan.app"
     />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500&display=swap"
-      rel="stylesheet"
-    />
-    <link rel="stylesheet" href="css/app.css" />
+    <meta name="color-scheme" content="dark light" />
+    <meta name="theme-color" content="#151515" media="(prefers-color-scheme: dark)" />
+    <meta name="theme-color" content="#FAFAFA" media="(prefers-color-scheme: light)" />
+    <link rel="preload" href="fonts/geist-var.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="fonts/jetbrains-mono-var.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="stylesheet" href="css/00-layers.css" />
+    <link rel="stylesheet" href="css/05-fonts.css" />
+    <link rel="stylesheet" href="css/10-tokens.css" />
+    <link rel="stylesheet" href="css/11-theme.css" />
+    <link rel="stylesheet" href="css/20-base.css" />
+    <link rel="stylesheet" href="css/30-primitives.css" />
+    <link rel="stylesheet" href="css/40-shell.css" />
+    <link rel="stylesheet" href="css/50-pages.css" />
+    <link rel="stylesheet" href="css/theme.css" />
     <script>
-      // Apply theme before paint to avoid flash of incorrect theme
+      // Apply theme before first paint. Saved choice wins; otherwise dark, unless the OS asks for light.
       (function () {
         try {
           var stored = localStorage.getItem("app-theme");
-          var theme =
-            stored || (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+          var theme = stored || (matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark");
           document.documentElement.setAttribute("data-theme", theme);
         } catch (_) {}
       })();
@@ -70,6 +76,11 @@
         <span>Acme Inc.</span>
       </a>
       <a href="changelog.html" class="version-pill" title="View changelog">v2.14.0</a>
+      <nav class="topbar-nav" aria-label="Primary">
+        <a href="index.html" class="topbar-link" aria-current="page">App</a>
+        <a href="design-system.html" class="topbar-link">Design system</a>
+        <a href="changelog.html" class="topbar-link">Changelog</a>
+      </nav>
 
       <div class="topbar-spacer"></div>
 
@@ -250,10 +261,10 @@
           <div class="canvas">
             <div class="c-topbar">
               <div class="c-logo"></div>
-              <div class="c-sk" style="width: 88px"></div>
-              <div style="flex: 1"></div>
-              <div class="c-sk" style="width: 58px"></div>
-              <div class="c-sk-dk" style="width: 42px"></div>
+              <div class="c-sk u-w-88"></div>
+              <div class="topbar-spacer"></div>
+              <div class="c-sk u-w-58"></div>
+              <div class="c-sk-dk u-w-42"></div>
               <div class="c-sk-btn"></div>
             </div>
             <div class="c-body">
@@ -274,7 +285,7 @@
                   <div class="c-dot"></div>
                   <div class="c-lbl" style="width: 50%"></div>
                 </div>
-                <div style="height: var(--sp-4)"></div>
+                <div class="c-gap"></div>
                 <div class="c-nav-row">
                   <div class="c-dot"></div>
                   <div class="c-lbl" style="width: 65%"></div>
@@ -316,13 +327,13 @@
                   <div class="c-thead">
                     <div class="c-th-ph" style="width: 26%"></div>
                     <div class="c-th-ph" style="width: 18%; margin-left: auto"></div>
-                    <div class="c-th-ph" style="width: 16%; margin-left: var(--sp-6)"></div>
+                    <div class="c-th-ph" style="width: 16%; margin-left: var(--space-4)"></div>
                     <div style="width: 80px; margin-left: auto"></div>
                   </div>
                   <div class="c-trow sel">
                     <div class="c-td-ph" style="width: 26%"></div>
                     <div class="c-td-ph" style="width: 18%; margin-left: auto"></div>
-                    <div class="c-td-ph" style="width: 16%; margin-left: var(--sp-6)"></div>
+                    <div class="c-td-ph" style="width: 16%; margin-left: var(--space-4)"></div>
                     <div class="c-pill-col">
                       <span class="chip chip-green"><span class="chip-dot"></span>Active</span>
                     </div>
@@ -330,7 +341,7 @@
                   <div class="c-trow">
                     <div class="c-td-ph" style="width: 26%"></div>
                     <div class="c-td-ph" style="width: 18%; margin-left: auto"></div>
-                    <div class="c-td-ph" style="width: 16%; margin-left: var(--sp-6)"></div>
+                    <div class="c-td-ph" style="width: 16%; margin-left: var(--space-4)"></div>
                     <div class="c-pill-col">
                       <span class="chip chip-amber"><span class="chip-dot"></span>Pending</span>
                     </div>
@@ -338,7 +349,7 @@
                   <div class="c-trow">
                     <div class="c-td-ph" style="width: 26%"></div>
                     <div class="c-td-ph" style="width: 18%; margin-left: auto"></div>
-                    <div class="c-td-ph" style="width: 16%; margin-left: var(--sp-6)"></div>
+                    <div class="c-td-ph" style="width: 16%; margin-left: var(--space-4)"></div>
                     <div class="c-pill-col">
                       <span class="chip chip-green"><span class="chip-dot"></span>Active</span>
                     </div>
@@ -346,7 +357,7 @@
                   <div class="c-trow">
                     <div class="c-td-ph" style="width: 26%"></div>
                     <div class="c-td-ph" style="width: 18%; margin-left: auto"></div>
-                    <div class="c-td-ph" style="width: 16%; margin-left: var(--sp-6)"></div>
+                    <div class="c-td-ph" style="width: 16%; margin-left: var(--space-4)"></div>
                     <div class="c-pill-col">
                       <span class="chip chip-red"><span class="chip-dot"></span>Error</span>
                     </div>
@@ -354,7 +365,7 @@
                   <div class="c-trow">
                     <div class="c-td-ph" style="width: 26%"></div>
                     <div class="c-td-ph" style="width: 18%; margin-left: auto"></div>
-                    <div class="c-td-ph" style="width: 16%; margin-left: var(--sp-6)"></div>
+                    <div class="c-td-ph" style="width: 16%; margin-left: var(--space-4)"></div>
                     <div class="c-pill-col">
                       <span class="chip chip-amber"><span class="chip-dot"></span>Pending</span>
                     </div>
@@ -482,6 +493,8 @@
       <span class="footer-sep"></span>
       <a href="changelog.html">Changelog</a>
       <span class="footer-sep"></span>
+      <a href="design-system.html">Design system</a>
+      <span class="footer-sep"></span>
       <a href="#docs">Docs</a>
       <span class="footer-sep"></span>
       <a href="#privacy">Privacy</a>
@@ -543,13 +556,13 @@
     </nav>
 
     <!-- ABOUT MODAL -->
-    <dialog class="about-modal" id="aboutModal" aria-labelledby="aboutModalTitle">
-      <div class="about-modal__inner">
-        <header class="about-modal__header">
-          <h2 id="aboutModalTitle" class="about-modal__title">About App Blueprint</h2>
+    <dialog class="dialog" id="aboutModal" aria-labelledby="aboutModalTitle">
+      <div class="dialog__inner">
+        <header class="dialog__header">
+          <h2 id="aboutModalTitle" class="dialog__title">About App Blueprint</h2>
           <button
             type="button"
-            class="about-modal__close"
+            class="icon-btn"
             id="aboutClose"
             aria-label="Close about dialog"
           >
@@ -558,7 +571,7 @@
             </svg>
           </button>
         </header>
-        <div class="about-modal__body">
+        <div class="dialog__body">
           <p>
             App Blueprint is an open-source, pixel-perfect web app wireframe that
             demonstrates a realistic SaaS-style interface — sidebar navigation, data
@@ -566,11 +579,11 @@
             It's a reference implementation and starting point for building
             production-quality dashboard UIs.
           </p>
-          <p class="about-modal__muted">
+          <p class="muted">
             All content is hardcoded placeholder data. "Acme Inc." and the sample
             records are intentional stand-ins and do not represent a real company.
           </p>
-          <ul class="about-modal__links">
+          <ul class="stack">
             <li>
               <a href="https://github.com/farhanshares/app-blueprint" target="_blank" rel="noopener"
                 >View on GitHub</a

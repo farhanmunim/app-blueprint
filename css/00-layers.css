@@ -1,0 +1,12 @@
+/* =============================================================================
+   Cascade layers — order = precedence (later wins).
+   Anything written OUTSIDE a layer beats all of them, so a theme is just an
+   un-layered :root { --token: value } block in theme.css.
+
+     tokens      design tokens (scales, semantic colours, knobs)
+     base        reset + element defaults
+     primitives  generic building blocks (buttons, chips, inputs, cards, tables…)
+     shell       app chrome (topbar, side panels, footer, mobile nav, dialogs)
+     pages       page-specific styles (canvas wireframe, changelog, design system)
+   ========================================================================== */
+@layer tokens, base, primitives, shell, pages;

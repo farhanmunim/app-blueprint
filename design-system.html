@@ -1,0 +1,491 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Design System — farhan.app</title>
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' rx='4' fill='%23f5f5f5'/%3E%3Cpath d='M4 4h3v3H4zM9 4h3v3H9zM4 9h3v3H4zM9 9h3v3H9z' fill='%23151515'/%3E%3C/svg%3E"
+    />
+    <meta name="author" content="farhan.app" />
+    <meta name="description" content="Design language for App Blueprint: tokens, typography, spacing and a full component set. Built by Farhan — farhan.app" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="App Blueprint" />
+    <meta property="og:title" content="Design System — farhan.app" />
+    <meta property="og:description" content="App Blueprint design language — tokens, type, spacing and components." />
+    <meta property="og:url" content="https://farhan.app" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="Design System — farhan.app" />
+    <meta name="twitter:description" content="App Blueprint design language. Built by Farhan — farhan.app" />
+    <meta name="color-scheme" content="dark light" />
+    <meta name="theme-color" content="#151515" media="(prefers-color-scheme: dark)" />
+    <meta name="theme-color" content="#FAFAFA" media="(prefers-color-scheme: light)" />
+    <link rel="preload" href="fonts/geist-var.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="fonts/jetbrains-mono-var.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="stylesheet" href="css/00-layers.css" />
+    <link rel="stylesheet" href="css/05-fonts.css" />
+    <link rel="stylesheet" href="css/10-tokens.css" />
+    <link rel="stylesheet" href="css/11-theme.css" />
+    <link rel="stylesheet" href="css/20-base.css" />
+    <link rel="stylesheet" href="css/30-primitives.css" />
+    <link rel="stylesheet" href="css/40-shell.css" />
+    <link rel="stylesheet" href="css/50-pages.css" />
+    <link rel="stylesheet" href="css/theme.css" />
+    <script>
+      // Apply theme before first paint. Saved choice wins; otherwise dark, unless the OS asks for light.
+      (function () {
+        try {
+          var stored = localStorage.getItem("app-theme");
+          var theme = stored || (matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark");
+          document.documentElement.setAttribute("data-theme", theme);
+        } catch (_) {}
+      })();
+    </script>
+  </head>
+  <body>
+    <header class="topbar">
+      <a href="index.html" class="topbar-logo">
+        <div class="logo-mark">
+          <svg
+            viewBox="0 0 16 16"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path
+              d="M3 3h4v4H3zM9 3h4v4H9zM3 9h4v4H3zM9 9h4v4H9z"
+              fill="currentColor"
+              stroke="none"
+            />
+          </svg>
+        </div>
+        <span>Acme Inc.</span>
+      </a>
+      <a href="changelog.html" class="version-pill" title="View changelog">v2.14.0</a>
+      <nav class="topbar-nav" aria-label="Primary">
+        <a href="index.html" class="topbar-link">App</a>
+        <a href="design-system.html" class="topbar-link" aria-current="page">Design system</a>
+        <a href="changelog.html" class="topbar-link">Changelog</a>
+      </nav>
+
+      <div class="topbar-spacer"></div>
+
+      <button
+        class="btn btn-ghost btn-icon btn-sm theme-toggle"
+        id="themeToggle"
+        aria-label="Toggle theme"
+        title="Toggle theme"
+      >
+        <svg class="icon icon-sm theme-icon-light" viewBox="0 0 24 24">
+          <circle cx="12" cy="12" r="4" />
+          <path
+            d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"
+          />
+        </svg>
+        <svg class="icon icon-sm theme-icon-dark" viewBox="0 0 24 24">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79Z" />
+        </svg>
+      </button>
+    </header>
+
+    <main class="docs" id="top">
+      <div class="docs__wrap">
+        <nav class="docs__toc" aria-label="On this page">
+          <a href="#colour">Colour</a>
+          <a href="#type">Typography</a>
+          <a href="#space">Spacing</a>
+          <a href="#shape">Radius &amp; shadow</a>
+          <a href="#motion">Motion</a>
+          <a href="#layout">Layout</a>
+          <a href="#tuning">Tuning</a>
+          <a href="#buttons">Buttons</a>
+          <a href="#forms">Forms</a>
+          <a href="#badges">Badges &amp; avatars</a>
+          <a href="#navigation">Navigation</a>
+          <a href="#data">Data display</a>
+          <a href="#feedback">Feedback</a>
+          <a href="#overlays">Overlays</a>
+          <a href="#theming">Theming</a>
+        </nav>
+
+        <div class="docs__main">
+          <header class="docs__hero">
+            <span class="eyebrow">Design language</span>
+            <h1>One system for every web app.</h1>
+            <p>
+              Tokens first, components second. Everything below is built from the same layered CSS
+              tokens, works in light and dark, and re-skins from a single <code class="ds-code">theme.css</code>.
+              Start every new project here.
+            </p>
+          </header>
+
+          <section class="ds-section" id="colour">
+            <span class="eyebrow">Foundations</span>
+            <h2>Colour</h2>
+            <p>Neutral by default so any brand can sit on top. Components read only these semantic tokens — never raw values.</p>
+            <div class="ds-block"><h3>Surfaces &amp; borders</h3><div class="ds-swatches">
+            <div class="ds-swatch"><i class="sw-bg"></i><div><b>Background</b><span>--bg</span><br /><span>Page canvas</span></div></div>
+            <div class="ds-swatch"><i class="sw-surface"></i><div><b>Surface</b><span>--surface</span><br /><span>Cards, panels</span></div></div>
+            <div class="ds-swatch"><i class="sw-surface-raised"></i><div><b>Surface raised</b><span>--surface-raised</span><br /><span>Inputs, active rows</span></div></div>
+            <div class="ds-swatch"><i class="sw-surface-hover"></i><div><b>Surface hover</b><span>--surface-hover</span><br /><span>Hover state</span></div></div>
+            <div class="ds-swatch"><i class="sw-border"></i><div><b>Border</b><span>--border</span><br /><span>Default outline</span></div></div>
+            <div class="ds-swatch"><i class="sw-border-hover"></i><div><b>Border hover</b><span>--border-hover</span><br /><span>Hover / focus outline</span></div></div>
+            <div class="ds-swatch"><i class="sw-border-subtle"></i><div><b>Border subtle</b><span>--border-subtle</span><br /><span>Dividers</span></div></div>
+            </div></div>
+            <div class="ds-block"><h3>Text &amp; accent</h3><div class="ds-swatches">
+            <div class="ds-swatch"><i class="sw-text-primary"></i><div><b>Text primary</b><span>--text-primary</span><br /><span>Headings, body</span></div></div>
+            <div class="ds-swatch"><i class="sw-text-secondary"></i><div><b>Text secondary</b><span>--text-secondary</span><br /><span>Supporting copy</span></div></div>
+            <div class="ds-swatch"><i class="sw-text-muted"></i><div><b>Text muted</b><span>--text-muted</span><br /><span>Labels, meta</span></div></div>
+            <div class="ds-swatch"><i class="sw-text-subtle"></i><div><b>Text subtle</b><span>--text-subtle</span><br /><span>Decorative / disabled</span></div></div>
+            <div class="ds-swatch"><i class="sw-accent"></i><div><b>Accent</b><span>--accent</span><br /><span>Primary action</span></div></div>
+            <div class="ds-swatch"><i class="sw-on-accent"></i><div><b>On accent</b><span>--on-accent</span><br /><span>Text on accent</span></div></div>
+            <div class="ds-swatch"><i class="sw-accent-subtle"></i><div><b>Accent subtle</b><span>--accent-subtle</span><br /><span>Hover wash</span></div></div>
+            <div class="ds-swatch"><i class="sw-focus-ring"></i><div><b>Focus ring</b><span>--focus-ring</span><br /><span>Keyboard focus</span></div></div>
+            </div></div>
+            <div class="ds-block"><h3>Status — used sparingly (dots, chips, small icons)</h3><div class="ds-swatches">
+            <div class="ds-swatch"><i class="sw-success"></i><div><b>Success</b><span>--success</span><br /><span>Positive / active</span></div></div>
+            <div class="ds-swatch"><i class="sw-warning"></i><div><b>Warning</b><span>--warning</span><br /><span>Pending / caution</span></div></div>
+            <div class="ds-swatch"><i class="sw-danger"></i><div><b>Danger</b><span>--danger</span><br /><span>Error / destructive</span></div></div>
+            <div class="ds-swatch"><i class="sw-info"></i><div><b>Info</b><span>--info</span><br /><span>Neutral highlight</span></div></div>
+            <div class="ds-swatch"><i class="sw-violet"></i><div><b>Violet</b><span>--violet</span><br /><span>Categorical</span></div></div>
+            </div>
+            <p class="ds-note">Each status colour also yields <code>--*-subtle</code> and <code>--*-border</code> tints for fills and outlines, derived with <code>color-mix()</code>.</p></div>
+          </section>
+
+          <section class="ds-section" id="type">
+            <span class="eyebrow">Foundations</span>
+            <h2>Typography</h2>
+            <p><b>Geist</b> for interface text, <b>JetBrains Mono</b> for eyebrows, numbers, code and metadata. Both are self-hosted variable fonts.</p>
+            <div class="ds-block ds-type">
+              <div><span>--text-2xs</span><p class="ds-t-2xs">Caption · 10</p></div>
+              <div><span>--text-xs</span><p class="ds-t-xs">Meta · 11</p></div>
+              <div><span>--text-sm</span><p class="ds-t-sm">Small · 12</p></div>
+              <div><span>--text-base</span><p class="ds-t-base">Base · 13</p></div>
+              <div><span>--text-md</span><p class="ds-t-md">Body · 14</p></div>
+              <div><span>--text-lg</span><p class="ds-t-lg">Lead · 16</p></div>
+              <div><span>--text-xl</span><p class="ds-t-xl">Title · 18</p></div>
+              <div><span>--text-2xl</span><p class="ds-t-2xl">H3 · 20</p></div>
+              <div><span>--text-3xl</span><p class="ds-t-3xl">H2 · 24</p></div>
+              <div><span>--text-4xl</span><p class="ds-t-4xl">H1 · 32</p></div>
+              <div><span>--text-5xl</span><p class="ds-t-5xl">Display · 40</p></div>
+              <div><span>Eyebrow</span><p class="eyebrow">Mono · uppercase · tracked</p></div>
+            </div>
+          </section>
+
+          <section class="ds-section" id="space">
+            <span class="eyebrow">Foundations</span>
+            <h2>Spacing</h2>
+            <p>Every gap and padding is a multiple of <code class="ds-code">--space-unit</code> (4px). Change the unit to make the whole app denser or roomier.</p>
+            <div class="ds-block ds-scale">
+              <div><span>--space-1</span><i class="ds-sp-1"></i></div>
+              <div><span>--space-2</span><i class="ds-sp-2"></i></div>
+              <div><span>--space-3</span><i class="ds-sp-3"></i></div>
+              <div><span>--space-4</span><i class="ds-sp-4"></i></div>
+              <div><span>--space-6</span><i class="ds-sp-6"></i></div>
+              <div><span>--space-8</span><i class="ds-sp-8"></i></div>
+              <div><span>--space-12</span><i class="ds-sp-12"></i></div>
+              <div><span>--space-16</span><i class="ds-sp-16"></i></div>
+            </div>
+          </section>
+
+          <section class="ds-section" id="shape">
+            <span class="eyebrow">Foundations</span>
+            <h2>Radius &amp; shadow</h2>
+            <p>Semantic aliases decide where each radius is used: controls, cards, overlays, badges.</p>
+            <div class="ds-block"><h3>Radius scale</h3><div class="ds-radii">
+              <div><i class="ds-r-2xs"></i>2xs</div>
+              <div><i class="ds-r-xs"></i>xs</div>
+              <div><i class="ds-r-sm"></i>sm</div>
+              <div><i class="ds-r-md"></i>md</div>
+              <div><i class="ds-r-lg"></i>lg</div>
+              <div><i class="ds-r-xl"></i>xl</div>
+              <div><i class="ds-r-2xl"></i>2xl</div>
+              <div><i class="ds-r-3xl"></i>3xl</div>
+              <div><i class="ds-r-full"></i>full</div>
+            </div></div>
+            <div class="ds-block"><h3>Elevation</h3><div class="ds-shadows">
+              <div class="ds-sh-subtle">subtle</div>
+              <div class="ds-sh-elevated">elevated</div>
+              <div class="ds-sh-glow">glow</div>
+              <div class="ds-sh-modal">modal</div>
+              <div class="ds-sh-dock">dock</div>
+            </div></div>
+          </section>
+
+          <section class="ds-section" id="motion">
+            <span class="eyebrow">Foundations</span>
+            <h2>Motion</h2>
+            <p>Short and soft. Hover a track to preview the duration. All motion collapses under <code class="ds-code">prefers-reduced-motion</code>.</p>
+            <div class="ds-block ds-motion">
+              <div><div class="ds-track"><i class="ds-d-instant"></i></div><p class="ds-note">--duration-instant · .1s</p></div>
+              <div><div class="ds-track"><i class="ds-d-fast"></i></div><p class="ds-note">--duration-fast · .15s</p></div>
+              <div><div class="ds-track"><i class="ds-d-base"></i></div><p class="ds-note">--duration-base · .2s</p></div>
+              <div><div class="ds-track"><i class="ds-d-slow"></i></div><p class="ds-note">--duration-slow · .3s</p></div>
+            </div>
+          </section>
+
+          <section class="ds-section" id="layout">
+            <span class="eyebrow">Foundations</span>
+            <h2>Layout</h2>
+            <p>A fixed-chrome shell: topbar, collapsible navigation, scrolling content, optional inspector, slim footer. On mobile the panels become drawers behind a bottom tab bar.</p>
+            <div class="ds-block"><div class="ds-layout" aria-hidden="true">
+              <div class="ds-layout__bar">Topbar · 56</div>
+              <div>Nav</div><div>Content</div><div>Inspector</div>
+              <div class="ds-layout__foot">Footer · 32</div>
+            </div></div>
+          </section>
+
+          <section class="ds-section" id="tuning">
+            <span class="eyebrow">Foundations</span>
+            <h2>Tuning</h2>
+            <p>Three global knobs re-scale the entire system at once. Try them — every component on this page responds.</p>
+            <div class="ds-block"><div class="ds-tune" id="tuning-panel">
+              <div class="ds-tune__row"><b>Density</b><input class="range" type="range" min="3" max="5.5" step=".5" value="4" data-knob="--space-unit" data-unit="px" aria-label="Density" /><code id="out-space">--space-unit: 4px</code></div>
+              <div class="ds-tune__row"><b>Roundness</b><input class="range" type="range" min="0" max="2" step=".25" value="1" data-knob="--radius-scale" data-unit="" aria-label="Roundness" /><code id="out-radius">--radius-scale: 1</code></div>
+              <div class="ds-tune__row"><b>Text size</b><input class="range" type="range" min=".9" max="1.2" step=".05" value="1" data-knob="--type-scale" data-unit="" aria-label="Text size" /><code id="out-type">--type-scale: 1</code></div>
+              <button type="button" class="btn btn-secondary btn-sm" id="tuning-reset">Reset</button>
+            </div></div>
+          </section>
+
+          <section class="ds-section" id="buttons">
+            <span class="eyebrow">Components</span>
+            <h2>Buttons</h2>
+            <p>One primary action per view. Use ghost for toolbars and icon buttons for dense chrome.</p>
+            <div class="ds-block"><h3>Variants</h3><div class="ds-stage">
+              <button class="btn btn-primary" type="button">Primary</button>
+              <button class="btn btn-secondary" type="button">Secondary</button>
+              <button class="btn btn-outline" type="button">Outline</button>
+              <button class="btn btn-ghost" type="button">Ghost</button>
+              <button class="btn btn-danger" type="button">Danger</button>
+              <button class="btn btn-primary" type="button" disabled>Disabled</button>
+            </div></div>
+            <div class="ds-block"><h3>Sizes, icons &amp; states</h3><div class="ds-stage">
+              <button class="btn btn-primary btn-sm" type="button">Small</button>
+              <button class="btn btn-primary" type="button">Medium</button>
+              <button class="btn btn-primary btn-lg" type="button">Large</button>
+              <button class="btn btn-secondary" type="button"><svg class="icon icon-sm" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14" /></svg> With icon</button>
+              <button class="btn btn-outline btn-icon" type="button" aria-label="Add"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14" /></svg></button>
+              <button class="btn btn-primary btn-pill" type="button">Pill</button>
+              <button class="btn btn-secondary" type="button" id="loading-demo">Click to load</button>
+            </div></div>
+          </section>
+
+          <section class="ds-section" id="forms">
+            <span class="eyebrow">Components</span>
+            <h2>Forms</h2>
+            <p>Inputs sit on the raised surface with a soft focus halo. Always pair with a visible label.</p>
+            <div class="ds-block ds-grid">
+              <div><label class="label" for="f-name">Name</label><input class="input" id="f-name" placeholder="Acme Inc." /><p class="hint">Shown to teammates.</p></div>
+              <div><label class="label" for="f-email">Email</label><input class="input" id="f-email" type="email" value="not-an-email" aria-invalid="true" /><p class="hint hint--error">Enter a valid email address.</p></div>
+              <div><label class="label" for="f-search">Search</label><div class="input-group"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="8" /><path d="m21 21-4.3-4.3" /></svg><input class="input" id="f-search" placeholder="Search…" /><span class="kbd">⌘K</span></div></div>
+              <div><label class="label" for="f-role">Role</label><select class="select" id="f-role"><option>Owner</option><option>Admin</option><option>Member</option></select></div>
+              <div><label class="label" for="f-dis">Disabled</label><input class="input" id="f-dis" value="Read only" disabled /></div>
+              <div><label class="label" for="f-notes">Notes</label><textarea class="textarea" id="f-notes" placeholder="Add context…"></textarea></div>
+            </div>
+            <div class="ds-block"><h3>Selection</h3><div class="ds-stage">
+              <label class="check"><input type="checkbox" checked /> Checkbox</label>
+              <label class="check"><input type="checkbox" /> Unchecked</label>
+              <label class="check"><input type="radio" name="r" checked /> Radio</label>
+              <label class="check"><input type="radio" name="r" /> Radio</label>
+              <label class="check"><span class="switch"><input type="checkbox" checked /><span class="switch__track"></span></span> Switch</label>
+              <label class="check"><span class="switch"><input type="checkbox" /><span class="switch__track"></span></span> Off</label>
+            </div></div>
+          </section>
+
+          <section class="ds-section" id="badges">
+            <span class="eyebrow">Components</span>
+            <h2>Badges &amp; avatars</h2>
+            <p>Chips carry status and counts. Colour is never the only signal — pair it with a label or dot.</p>
+            <div class="ds-block"><h3>Chips</h3><div class="ds-stage">
+              <span class="chip">Default</span><span class="chip chip-accent">Accent</span><span class="chip chip-outline">Outline</span>
+              <span class="chip chip-green"><i class="chip-dot"></i>Active</span>
+              <span class="chip chip-amber"><i class="chip-dot"></i>Pending</span>
+              <span class="chip chip-red"><i class="chip-dot"></i>Error</span>
+              <span class="chip chip-brand">New</span><span class="chip chip-violet">Beta</span>
+              <span class="kbd">⌘</span><span class="kbd">K</span>
+            </div></div>
+            <div class="ds-block"><h3>Avatars</h3><div class="ds-stage">
+              <span class="avatar avatar--lg avatar--info">FM</span>
+              <span class="avatar avatar--violet">AK</span><span class="avatar avatar--success">MR</span>
+              <div class="avatars"><span class="avatar avatar--info">FM</span><span class="avatar avatar--violet">AK</span><span class="avatar avatar--warning">JD</span><span class="avatar avatar--danger">+4</span></div>
+            </div></div>
+          </section>
+
+          <section class="ds-section" id="navigation">
+            <span class="eyebrow">Components</span>
+            <h2>Navigation</h2>
+            <p>Tabs for switching views of the same thing, segmented controls for modes, breadcrumbs for place.</p>
+            <div class="ds-block"><h3>Tabs</h3><div class="ds-stage ds-stage--col ds-stage--plain">
+              <div class="tabs" role="tablist" data-group="tabs">
+                <button class="tabs__tab" role="tab" aria-selected="true" type="button">Overview</button>
+                <button class="tabs__tab" role="tab" aria-selected="false" type="button">Activity</button>
+                <button class="tabs__tab" role="tab" aria-selected="false" type="button">Settings</button>
+              </div>
+            </div></div>
+            <div class="ds-block"><h3>Segmented, breadcrumb &amp; pagination</h3><div class="ds-stage">
+              <div class="segmented" data-group="segmented"><button class="segmented__item" aria-pressed="true" type="button">Day</button><button class="segmented__item" aria-pressed="false" type="button">Week</button><button class="segmented__item" aria-pressed="false" type="button">Month</button></div>
+              <nav class="breadcrumb" aria-label="Breadcrumb"><a href="#navigation">Acme</a><span class="breadcrumb__sep">/</span><a href="#navigation">Items</a><span class="breadcrumb__sep">/</span><span aria-current="page">Item #0041</span></nav>
+              <div class="pagination"><button class="btn btn-ghost btn-icon btn-sm" type="button" aria-label="Previous"><svg class="icon icon-sm" viewBox="0 0 24 24" aria-hidden="true"><path d="m15 18-6-6 6-6" /></svg></button><button class="btn btn-ghost btn-sm" type="button" aria-current="page">1</button><button class="btn btn-ghost btn-sm" type="button">2</button><button class="btn btn-ghost btn-sm" type="button">3</button><button class="btn btn-ghost btn-icon btn-sm" type="button" aria-label="Next"><svg class="icon icon-sm" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6" /></svg></button></div>
+            </div></div>
+          </section>
+
+          <section class="ds-section" id="data">
+            <span class="eyebrow">Components</span>
+            <h2>Data display</h2>
+            <p>Cards group related content; tables carry dense records with mono numerals.</p>
+            <div class="ds-block ds-grid">
+              <article class="card"><div class="card__body"><div class="stat__label">Revenue</div><div class="stat__value">£48,200<span class="stat__delta stat__delta--up">+3.4%</span></div></div></article>
+              <article class="card"><div class="card__body"><div class="stat__label">Churn</div><div class="stat__value">2.1%<span class="stat__delta stat__delta--down">−0.4%</span></div></div></article>
+              <article class="card card--interactive"><header class="card__header"><div><div class="card__title">Card title</div><div class="card__desc">Supporting description</div></div></header><div class="card__body"><p class="muted">Body content sits on the surface token.</p></div><footer class="card__footer"><button class="btn btn-primary btn-sm" type="button">Save</button><button class="btn btn-ghost btn-sm" type="button">Cancel</button></footer></article>
+            </div>
+            <div class="ds-block"><h3>Table</h3><div class="table-wrap"><table class="table">
+              <thead><tr><th>Item</th><th>Owner</th><th>Status</th><th class="num">Value</th></tr></thead>
+              <tbody>
+                <tr><td>Item #0041</td><td>Farhan M.</td><td><span class="chip chip-green"><i class="chip-dot"></i>Active</span></td><td class="num">£48,200</td></tr>
+                <tr><td>Item #0042</td><td>Aisha K.</td><td><span class="chip chip-amber"><i class="chip-dot"></i>Pending</span></td><td class="num">£12,950</td></tr>
+                <tr><td>Item #0043</td><td>Marcus R.</td><td><span class="chip chip-red"><i class="chip-dot"></i>Error</span></td><td class="num">£3,400</td></tr>
+              </tbody></table></div></div>
+          </section>
+
+          <section class="ds-section" id="feedback">
+            <span class="eyebrow">Components</span>
+            <h2>Feedback</h2>
+            <p>Tell people what happened, what is loading, and what to do when there is nothing to show.</p>
+            <div class="ds-block ds-grid">
+              <div class="alert alert--info" role="status"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10" /><path d="M12 16v-4M12 8h.01" /></svg><div><div class="alert__title">Heads up</div><div class="alert__text">A new version is available.</div></div></div>
+              <div class="alert alert--success" role="status"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6 9 17l-5-5" /></svg><div><div class="alert__title">Saved</div><div class="alert__text">Your changes are live.</div></div></div>
+              <div class="alert alert--warning" role="status"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z" /><path d="M12 9v4M12 17h.01" /></svg><div><div class="alert__title">Almost full</div><div class="alert__text">You have used 90% of your plan.</div></div></div>
+              <div class="alert alert--danger" role="alert"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10" /><path d="m15 9-6 6M9 9l6 6" /></svg><div><div class="alert__title">Sync failed</div><div class="alert__text">Check your connection and retry.</div></div></div>
+            </div>
+            <div class="ds-block"><h3>Progress, spinner &amp; skeleton</h3><div class="ds-stage ds-stage--col ds-stage--plain">
+              <div class="progress" role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"><div class="progress__bar p-25"></div></div>
+              <div class="progress progress--success" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"><div class="progress__bar p-60"></div></div>
+              <div class="progress progress--danger" role="progressbar" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100"><div class="progress__bar p-85"></div></div>
+              <div class="row"><div class="spinner" role="status" aria-label="Loading"></div><span class="skeleton u-w-88"></span><span class="skeleton u-w-58"></span></div>
+            </div></div>
+            <div class="ds-block"><h3>Empty state &amp; toast</h3><div class="ds-stage ds-stage--plain">
+              <div class="empty">
+                <div class="empty__icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z" /><path d="m3.3 7 8.7 5 8.7-5M12 22V12" /></svg></div>
+                <div class="empty__title">No items yet</div>
+                <p class="empty__text">Create your first item to see it here.</p>
+                <button class="btn btn-primary btn-sm" type="button"><svg class="icon icon-sm" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14" /></svg> New item</button>
+              </div>
+              <button class="btn btn-secondary" type="button" id="toast-demo">Show toast</button>
+            </div></div>
+          </section>
+
+          <section class="ds-section" id="overlays">
+            <span class="eyebrow">Components</span>
+            <h2>Overlays</h2>
+            <p>Dialogs use the native <code class="ds-code">&lt;dialog&gt;</code> element — Escape and focus trapping come free.</p>
+            <div class="ds-block"><div class="ds-stage">
+              <button class="btn btn-primary" type="button" id="dialog-demo">Open dialog</button>
+              <div class="menu-wrap" id="menu-demo">
+                <button class="btn btn-secondary" type="button" aria-haspopup="menu" aria-expanded="false">Actions <svg class="icon icon-sm" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="1" /><circle cx="12" cy="5" r="1" /><circle cx="12" cy="19" r="1" /></svg></button>
+                <div class="menu" role="menu" hidden>
+                  <button class="menu__item" role="menuitem" type="button">Edit<span class="kbd">E</span></button>
+                  <button class="menu__item" role="menuitem" type="button">Duplicate<span class="kbd">D</span></button>
+                  <div class="menu__sep"></div>
+                  <button class="menu__item menu__item--danger" role="menuitem" type="button">Delete</button>
+                </div>
+              </div>
+              <button class="btn btn-outline tooltip" type="button" data-tip="Tooltips are CSS-only">Hover me</button>
+            </div></div>
+          </section>
+
+          <section class="ds-section" id="theming">
+            <span class="eyebrow">Usage</span>
+            <h2>Theming a new project</h2>
+            <p>Copy <code class="ds-code">css/</code> and <code class="ds-code">fonts/</code> into the new project, then override only what the brand needs in <code class="ds-code">css/theme.css</code> — it loads last and un-layered, so it always wins.</p>
+            <div class="ds-block"><div class="surface"><div class="card__body">
+              <pre class="ds-code-block"><code>:root { --radius-scale: .75; --space-unit: 3.5px; }
+[data-theme="dark"]  { --accent: #7dd3fc; --on-accent: #0b1220; }
+[data-theme="light"] { --accent: #0369a1; --on-accent: #ffffff; }</code></pre>
+            </div></div>
+            <p class="ds-note">Full guide in <code>THEMING.md</code>. Rules: components use semantic tokens only; no raw colours outside the theme files; light and dark ship together from day one.</p></div>
+          </section>
+        </div>
+      </div>
+    </main>
+
+    <dialog class="dialog" id="demoDialog" aria-labelledby="demoDialogTitle">
+      <div class="dialog__inner">
+        <header class="dialog__header"><h2 class="dialog__title" id="demoDialogTitle">Delete item?</h2><button type="button" class="icon-btn" data-close aria-label="Close"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12" /></svg></button></header>
+        <div class="dialog__body"><p class="muted">This permanently removes Item #0041 and its history. This action cannot be undone.</p></div>
+        <footer class="dialog__footer"><button type="button" class="btn btn-ghost" data-close>Cancel</button><button type="button" class="btn btn-danger" data-close>Delete</button></footer>
+      </div>
+    </dialog>
+
+    <div class="toast-region" id="toastRegion" aria-live="polite"></div>
+
+    <footer class="app-footer">
+      <button type="button" class="app-footer__link" id="aboutTrigger">About</button>
+      <span class="footer-sep"></span>
+      <a href="changelog.html">Changelog</a>
+      <span class="footer-sep"></span>
+      <a href="design-system.html">Design system</a>
+      <span class="footer-sep"></span>
+      <a href="#docs">Docs</a>
+      <span class="footer-sep"></span>
+      <a href="#privacy">Privacy</a>
+      <span class="footer-spacer"></span>
+      <span class="footer-meta">All systems operational</span>
+      <span class="footer-sep"></span>
+      <span>Built by <a href="https://farhan.app" target="_blank" rel="noopener">Farhan</a></span>
+    </footer>
+
+    <!-- ABOUT MODAL -->
+    <dialog class="dialog" id="aboutModal" aria-labelledby="aboutModalTitle">
+      <div class="dialog__inner">
+        <header class="dialog__header">
+          <h2 id="aboutModalTitle" class="dialog__title">About App Blueprint</h2>
+          <button
+            type="button"
+            class="icon-btn"
+            id="aboutClose"
+            aria-label="Close about dialog"
+          >
+            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M18 6 6 18M6 6l12 12" />
+            </svg>
+          </button>
+        </header>
+        <div class="dialog__body">
+          <p>
+            App Blueprint is an open-source, pixel-perfect web app wireframe that
+            demonstrates a realistic SaaS-style interface — sidebar navigation, data
+            tables, inspector panel, command palette, and a responsive mobile shell.
+            It's a reference implementation and starting point for building
+            production-quality dashboard UIs.
+          </p>
+          <p class="muted">
+            All content is hardcoded placeholder data. "Acme Inc." and the sample
+            records are intentional stand-ins and do not represent a real company.
+          </p>
+          <ul class="stack">
+            <li>
+              <a href="https://github.com/farhanshares/app-blueprint" target="_blank" rel="noopener"
+                >View on GitHub</a
+              >
+            </li>
+            <li>Built by <a href="https://farhan.app" target="_blank" rel="noopener">Farhan</a></li>
+            <li>
+              If you find this useful, consider
+              <a href="https://buymeacoffee.com/farhan" target="_blank" rel="noopener"
+                >buying me a coffee</a
+              >
+              ☕
+            </li>
+          </ul>
+        </div>
+      </div>
+    </dialog>
+
+    <script src="js/app.js" defer></script>
+    <script src="js/design-system.js" defer></script>
+  </body>
+</html>
