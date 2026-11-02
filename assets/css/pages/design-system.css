@@ -60,8 +60,8 @@
   .ds-type > div { flex-direction: column; gap: var(--space-1); }
 }
 
-.ds-d-instant { transition-duration: var(--duration-instant); } .ds-d-fast { transition-duration: var(--duration-fast); }
-.ds-d-base { transition-duration: var(--duration-base); } .ds-d-slow { transition-duration: var(--duration-slow); }
+.ds-track .ds-d-instant { transition-duration: var(--duration-instant); } .ds-track .ds-d-fast { transition-duration: var(--duration-fast); }
+.ds-track .ds-d-base { transition-duration: var(--duration-base); } .ds-track .ds-d-slow { transition-duration: var(--duration-slow); }
 .ds-code-block { margin: 0; overflow-x: auto; font-size: var(--text-xs); line-height: var(--leading-relaxed); color: var(--text-secondary); white-space: pre; }
 
 }
