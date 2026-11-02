@@ -74,9 +74,13 @@
 
 @media (max-width: 640px) {
   .nav-item { height: 40px; }
-  .panel-left, .panel-right { position: fixed; top: 0; bottom: calc(var(--mobile-nav-h) + env(safe-area-inset-bottom, 0px)); width: min(86vw, 320px) !important; box-shadow: none; overscroll-behavior: contain; transition: transform var(--duration-slow) var(--ease-soft), box-shadow var(--duration-slow); }
+  /* Anchored to .workspace (not the viewport): the drawer spans exactly the space between the topbar and the tab bar, however tall the footer wraps. */
+  .panel-left, .panel-right { position: absolute; top: 0; bottom: 0; width: min(86vw, 320px) !important; box-shadow: none; overscroll-behavior: contain; transition: transform var(--duration-slow) var(--ease-soft), box-shadow var(--duration-slow); }
   .panel-left  { left: 0;  transform: translateX(-100%); }
   .panel-right { right: 0; transform: translateX(100%); width: min(86vw, 340px) !important; }
   .panel-left.mobile-open, .panel-right.mobile-open { transform: none; box-shadow: var(--shadow-modal); }
+  /* Closed drawers are off-canvas: take them out of the tab order and hit-testing (otherwise focus scrolls the workspace sideways).
+     visibility flips after the slide-out finishes; it is instant when opening. */
+  .panel-left:not(.mobile-open), .panel-right:not(.mobile-open) { visibility: hidden; transition: transform var(--duration-slow) var(--ease-soft), box-shadow var(--duration-slow), visibility 0s linear var(--duration-slow); }
   .right-collapse-tab { display: none; }
 }

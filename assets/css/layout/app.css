@@ -16,6 +16,6 @@ body.drawer-open { overflow: hidden; touch-action: none; }
 .overlay.visible { opacity: 1; }
 
 @media (max-width: 640px) {
-  .overlay { display: block; pointer-events: none; }
+  .overlay { display: block; position: absolute; height: auto; pointer-events: none; }
   .overlay.visible { pointer-events: auto; }
 }
