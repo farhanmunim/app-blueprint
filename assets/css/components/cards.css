@@ -1,0 +1,15 @@
+/* =============================================================================
+   Cards & stats
+   ========================================================================== */
+
+.card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-card); overflow: hidden; transition: border-color var(--duration-slow); }
+.card--interactive:hover { border-color: var(--border-hover); }
+.card__header { display: flex; align-items: center; gap: var(--space-3); padding: var(--space-3-5) var(--card-pad); border-bottom: 1px solid var(--border-subtle); }
+.card__title { font-size: var(--text-base); font-weight: var(--weight-medium); letter-spacing: var(--tracking-snug); }
+.card__desc { margin-top: var(--space-0-5); font-size: var(--text-sm); color: var(--text-muted); }
+.card__body { padding: var(--card-pad); }
+.card__footer { display: flex; align-items: center; gap: var(--space-2); padding: var(--space-3) var(--card-pad); border-top: 1px solid var(--border-subtle); background: var(--bg); }
+.stat__label { font: var(--weight-regular) var(--text-2xs)/1 var(--font-mono); text-transform: uppercase; letter-spacing: .1em; color: var(--text-muted); }
+.stat__value { margin-top: var(--space-2); font-size: var(--text-3xl); font-weight: var(--weight-semibold); letter-spacing: var(--tracking-tight-heading); font-variant-numeric: tabular-nums; }
+.stat__delta { margin-left: var(--space-2); font: var(--weight-medium) var(--text-xs)/1 var(--font-mono); }
+.stat__delta--up { color: var(--success); } .stat__delta--down { color: var(--danger); }

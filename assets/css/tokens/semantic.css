@@ -1,0 +1,19 @@
+/* =============================================================================
+   TOKENS · tier 3 — semantic aliases (what a component *means*, not its size)
+   Re-point these to change a whole category, e.g. square controls only:
+       :root { --radius-control: var(--radius-xs); }
+   ========================================================================== */
+:root {
+  --radius-control: var(--radius-md);   /* buttons, inputs, tabs, chips   */
+  --radius-card: var(--radius-lg);      /* cards, panels, popovers        */
+  --radius-overlay: var(--radius-2xl);  /* modals, sheets, docks          */
+  --radius-badge: var(--radius-xs);     /* tags, kbd, small labels        */
+  --radius-pill: var(--radius-full);
+
+  --field-h: var(--control-h-md);
+  --field-px: var(--space-3);
+  --card-pad: var(--space-4);
+  --stack-gap: var(--space-2);          /* default gap between related items */
+  --section-gap: var(--space-6);
+  --focus-offset: 2px;
+}

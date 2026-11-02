@@ -1,0 +1,16 @@
+/* =============================================================================
+   Utilities — helpers (type, layout, widths)
+   ========================================================================== */
+
+.eyebrow { font: var(--weight-regular) var(--text-xs)/1 var(--font-mono); text-transform: uppercase; letter-spacing: var(--tracking-eyebrow); color: var(--text-muted); }
+.mono { font-family: var(--font-mono); }
+.muted { color: var(--text-secondary); }
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.surface { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-card); }
+.glass { background: rgba(var(--bg-rgb), .8); backdrop-filter: blur(var(--blur-md)); -webkit-backdrop-filter: blur(var(--blur-md)); }
+.dotgrid { background-image: radial-gradient(circle, var(--dot) 1px, transparent 1px); background-size: 24px 24px; }
+.stack { display: flex; flex-direction: column; gap: var(--stack-gap); }
+.row { display: flex; align-items: center; gap: var(--stack-gap); flex-wrap: wrap; }
+
+/* fixed widths for skeleton / placeholder bars */
+.u-w-88 { width: 88px; } .u-w-58 { width: 58px; } .u-w-42 { width: 42px; }

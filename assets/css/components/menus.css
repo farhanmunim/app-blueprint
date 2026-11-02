@@ -1,0 +1,15 @@
+/* =============================================================================
+   Menus, popovers & tooltips
+   ========================================================================== */
+
+.menu-wrap { position: relative; display: inline-block; }
+.menu { position: absolute; z-index: var(--z-popover); top: calc(100% + var(--space-2)); left: 0; min-width: 190px; display: grid; gap: var(--space-0-5); padding: var(--space-1); border: 1px solid var(--border); border-radius: var(--radius-card); background: var(--surface); box-shadow: var(--shadow-elevated); animation: fade-in .12s var(--ease-soft); }
+.menu--end { left: auto; right: 0; }
+.menu__item { display: flex; align-items: center; gap: var(--space-2-5); height: var(--control-h-md); padding: 0 var(--space-2-5); border: 0; border-radius: var(--radius-md); background: transparent; color: var(--text-secondary); font-size: var(--text-base); text-align: left; cursor: pointer; }
+.menu__item:hover { background: var(--surface-raised); color: var(--text-primary); }
+.menu__item--danger { color: var(--danger); } .menu__item--danger:hover { background: var(--danger-subtle); color: var(--danger); }
+.menu__item .kbd { margin-left: auto; }
+.menu__sep { height: 1px; margin: var(--space-1) calc(var(--space-1) * -1); background: var(--border-subtle); }
+.tooltip { position: relative; }
+.tooltip::after { content: attr(data-tip); position: absolute; z-index: var(--z-popover); bottom: calc(100% + 6px); left: 50%; translate: -50% 4px; padding: var(--space-1-5) var(--space-2-5); border: 1px solid var(--border); border-radius: var(--radius-md); background: var(--surface-raised); color: var(--text-primary); box-shadow: var(--shadow-elevated); font-size: var(--text-xs); white-space: nowrap; opacity: 0; pointer-events: none; transition: opacity var(--duration-fast), translate var(--duration-fast) var(--ease-soft); }
+.tooltip:hover::after, .tooltip:focus-visible::after { opacity: 1; translate: -50% 0; }

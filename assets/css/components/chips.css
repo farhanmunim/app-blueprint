@@ -1,0 +1,24 @@
+/* =============================================================================
+   Chips, badges & keyboard keys
+   ========================================================================== */
+
+.chip {
+  display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0; height: 20px; padding: 0 var(--space-2);
+  border: 1px solid var(--border); border-radius: var(--radius-badge); background: var(--surface-raised); color: var(--text-secondary);
+  font: var(--weight-medium) var(--text-2xs)/1 var(--font-mono); white-space: nowrap; letter-spacing: 0;
+}
+.chip-accent { background: var(--accent); border-color: var(--accent); color: var(--on-accent); }
+.chip-outline { background: transparent; }
+.chip-green, .chip-success { background: var(--success-subtle); border-color: var(--success-border); color: var(--success); }
+.chip-amber, .chip-warning { background: var(--warning-subtle); border-color: var(--warning-border); color: var(--warning); }
+.chip-red, .chip-danger { background: var(--danger-subtle); border-color: var(--danger-border); color: var(--danger); }
+.chip-brand, .chip-info { background: var(--info-subtle); border-color: var(--info-border); color: var(--info); }
+.chip-violet { background: var(--violet-subtle); border-color: var(--violet-border); color: var(--violet); }
+.chip-dot { width: 6px; height: 6px; margin-right: var(--space-1-5); border-radius: var(--radius-full); background: currentColor; }
+.chip-pill { border-radius: var(--radius-pill); }
+
+.kbd {
+  display: inline-flex; align-items: center; justify-content: center; min-width: 20px; height: 20px; padding: 0 var(--space-1-5);
+  border: 1px solid var(--border); border-radius: var(--radius-badge); background: var(--surface-raised); color: var(--text-muted);
+  font: var(--weight-regular) var(--text-2xs)/1 var(--font-mono);
+}

@@ -1,0 +1,46 @@
+/* =============================================================================
+   Form controls — inputs, select, checkbox, radio, switch
+   ========================================================================== */
+
+.label { display: block; margin-bottom: var(--space-1-5); font-size: var(--text-sm); font-weight: var(--weight-medium); color: var(--text-secondary); }
+.hint { margin-top: var(--space-1-5); font-size: var(--text-xs); color: var(--text-muted); }
+.hint--error { color: var(--danger); }
+.input, .select, .textarea {
+  width: 100%; height: var(--field-h); padding: 0 var(--field-px);
+  border: 1px solid var(--border); border-radius: var(--radius-control); background: var(--surface-raised); color: var(--text-primary);
+  font-size: var(--text-base); line-height: 1.2;
+  transition: border-color var(--duration-base) var(--ease-soft), background-color var(--duration-base) var(--ease-soft), box-shadow var(--duration-base);
+}
+.input::placeholder, .textarea::placeholder { color: var(--text-muted); }
+.input:hover, .select:hover, .textarea:hover { border-color: var(--border-hover); }
+.input:focus, .select:focus, .textarea:focus { outline: none; border-color: var(--border-hover); box-shadow: 0 0 0 3px var(--accent-subtle); }
+.input:disabled, .select:disabled, .textarea:disabled { opacity: .45; cursor: not-allowed; }
+.input[aria-invalid="true"] { border-color: var(--danger-border); }
+.input[aria-invalid="true"]:focus { box-shadow: 0 0 0 3px var(--danger-subtle); }
+.textarea { height: auto; min-height: 88px; padding: var(--space-2-5) var(--space-3); resize: vertical; line-height: var(--leading-normal); }
+.select { appearance: none; padding-right: var(--space-8); cursor: pointer;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23949494' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat; background-position: right var(--space-2-5) center; background-size: 14px; }
+.input-group { position: relative; }
+.input-group > .icon { position: absolute; left: var(--space-2-5); top: 50%; translate: 0 -50%; color: var(--text-muted); pointer-events: none; }
+.input-group > .input { padding-left: var(--space-8); }
+.input-group > .kbd { position: absolute; right: var(--space-2); top: 50%; translate: 0 -50%; pointer-events: none; }
+
+.check { display: inline-flex; align-items: center; gap: var(--space-2-5); font-size: var(--text-base); color: var(--text-primary); cursor: pointer; }
+.check input { appearance: none; flex: none; width: 16px; height: 16px; margin: 0; border: 1px solid var(--border-hover); border-radius: var(--radius-xs); background: var(--surface-raised); display: grid; place-items: center; cursor: pointer; transition: background-color var(--duration-fast), border-color var(--duration-fast); }
+.check input[type="radio"] { border-radius: var(--radius-full); }
+.check input:checked { background: var(--accent); border-color: var(--accent); }
+.check input:checked::after { content: ""; width: 8px; height: 5px; border: solid var(--on-accent); border-width: 0 0 2px 2px; rotate: -45deg; translate: 0 -1px; }
+.check input[type="radio"]:checked::after { width: 6px; height: 6px; border: 0; border-radius: 50%; background: var(--on-accent); rotate: 0deg; translate: 0 0; }
+.check input:disabled { opacity: .4; cursor: not-allowed; }
+
+.switch { position: relative; display: inline-block; flex: none; width: 34px; height: 20px; }
+.switch input { position: absolute; inset: 0; width: 100%; height: 100%; margin: 0; opacity: 0; cursor: pointer; }
+.switch__track { position: absolute; inset: 0; border: 1px solid var(--border-hover); border-radius: var(--radius-full); background: var(--surface-raised); pointer-events: none; transition: background-color var(--duration-base) var(--ease-soft), border-color var(--duration-base); }
+.switch__track::after { content: ""; position: absolute; top: 2px; left: 2px; width: 14px; height: 14px; border-radius: 50%; background: var(--text-secondary); transition: transform var(--duration-base) var(--ease-soft), background-color var(--duration-base); }
+.switch input:checked + .switch__track { background: var(--accent); border-color: var(--accent); }
+.switch input:checked + .switch__track::after { transform: translateX(14px); background: var(--on-accent); }
+.switch input:focus-visible + .switch__track { outline: 2px solid var(--focus-ring); outline-offset: 2px; }
+.switch input:disabled { cursor: not-allowed; } .switch input:disabled + .switch__track { opacity: .4; }
+
+input[type="range"].range { width: 100%; accent-color: var(--accent); }

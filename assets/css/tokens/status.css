@@ -1,0 +1,23 @@
+/* =============================================================================
+   TOKENS · tier 2b — derived status tints (theme independent formulas)
+   Every status colour yields a tinted fill + border for chips, alerts and rows.
+   ========================================================================== */
+:root {
+  --success-subtle: color-mix(in srgb, var(--success) 13%, transparent);
+  --success-border: color-mix(in srgb, var(--success) 32%, transparent);
+  --warning-subtle: color-mix(in srgb, var(--warning) 13%, transparent);
+  --warning-border: color-mix(in srgb, var(--warning) 32%, transparent);
+  --danger-subtle:  color-mix(in srgb, var(--danger) 13%, transparent);
+  --danger-border:  color-mix(in srgb, var(--danger) 32%, transparent);
+  --info-subtle:    color-mix(in srgb, var(--info) 13%, transparent);
+  --info-border:    color-mix(in srgb, var(--info) 32%, transparent);
+  --violet-subtle:  color-mix(in srgb, var(--violet) 13%, transparent);
+  --violet-border:  color-mix(in srgb, var(--violet) 32%, transparent);
+
+  /* categorical hues for avatars / chart series — theme aware via the status set */
+  --hue-1: var(--info);
+  --hue-2: var(--violet);
+  --hue-3: var(--success);
+  --hue-4: var(--warning);
+  --hue-5: var(--danger);
+}

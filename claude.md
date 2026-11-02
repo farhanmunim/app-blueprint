@@ -60,6 +60,23 @@ npx serve . -l 8080
 
 ---
 
+## 4b. Code Structure
+
+See `README.md` for the full tree. In short:
+
+- Pages (`*.html`) live in the repo root so URLs stay clean on Cloudflare Pages.
+- Everything else lives under `assets/`: `css/`, `js/`, `fonts/`.
+- **CSS**: one entry (`assets/css/main.css`) imports the shared layers; each page links
+  its own `assets/css/pages/<page>.css` after it. One concern per file.
+- **JS**: native ES modules, no bundler. `assets/js/app.js` is the shared entry,
+  `assets/js/modules/` holds reusable behaviours, `assets/js/pages/` holds page entries.
+  `assets/js/theme-init.js` is the only classic script (sync, in `<head>`, to avoid a theme flash).
+- No inline `<script>` or `<style>` blocks in pages.
+- Adding a file means wiring it up: a CSS file must be `@import`ed in `main.css` (or linked
+  by its page); a JS module must be imported by an entry. Don't leave orphans.
+
+---
+
 ## 5. Watch Out For
 
 - **Mobile shell**: The mobile layout uses an off-canvas drawer and a five-tab bottom
@@ -73,12 +90,12 @@ npx serve . -l 8080
 - **Status badges**: Colour-coded (Active/Pending/Error) — these use CSS custom
   properties. Don't hardcode colours.
 - **CSS tokens**: All repeating values (colours, spacing, radii, shadows) live in the
-  token layers (`css/10-tokens.css`, `css/11-theme.css`). Never introduce a raw
-  hex/rgb/hsl value outside them or `css/theme.css`.
+  token layers (`assets/css/tokens/`). Never introduce a raw
+  hex/rgb/hsl value outside them or `assets/css/theme.css`.
 - **Dark mode**: Token-driven, ships with light from day one — never bolt on with
   overrides. Components use semantic tokens only, so both themes work automatically.
 - **Design system page**: `design-system.html` is the living reference. When adding or
-  changing a primitive in `css/30-primitives.css`, update its specimen there too.
+  changing a component in `assets/css/components/`, update its specimen there too.
 - **changelog.html vs CHANGELOG.md**: These are separate things. `changelog.html` is
   user-facing and styled. `CHANGELOG.md` is internal dev log (gitignored).
 
@@ -202,7 +219,7 @@ logs, `/screenshots`, `CHANGELOG.md`. Verify no junk files are tracked before co
 - Only introduce a library if a well-established solution exists for the problem
   (e.g. Leaflet for maps, SheetJS for Excel, Chart.js for charts) or the feature
   complexity genuinely warrants it. Never add a library for convenience.
-- Prefer CDN for libraries on static sites. Fonts are self-hosted (`fonts/`), never a third-party request. No bundler unless explicitly required.
+- Prefer CDN for libraries on static sites. Fonts are self-hosted (`assets/fonts/`), never a third-party request. No bundler unless explicitly required.
 - No npm packages for problems solvable with native browser APIs.
 - Keep dependencies minimal and intentional.
 
@@ -239,8 +256,8 @@ logs, `/screenshots`, `CHANGELOG.md`. Verify no junk files are tracked before co
 - Avoid generic aesthetics: no default system fonts, no purple-gradient-on-white,
   no cookie-cutter layouts.
 - Use CSS custom properties (tokens) for all repeating values: colours, spacing,
-  typography, radii, shadows, z-indices. Tokens are declared in `css/10-tokens.css` and
-  `css/11-theme.css`; project overrides go in the un-layered `css/theme.css`.
+  typography, radii, shadows, z-indices. Tokens are declared in `assets/css/tokens/`;
+  project overrides go in the un-layered `assets/css/theme.css`.
 - Follow the UI library design language: Geist + JetBrains Mono (self-hosted), neutral
   accent, hairline borders, mono eyebrows/metadata, soft motion. Reuse primitives before
   inventing new styles.

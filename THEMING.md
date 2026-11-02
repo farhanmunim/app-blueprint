@@ -6,24 +6,30 @@ themes, Geist + JetBrains Mono. Open `design-system.html` for every token and co
 
 ## File map
 
-| File | Layer | Purpose |
-| --- | --- | --- |
-| `css/00-layers.css` | — | Declares layer order: `tokens, base, primitives, shell, pages` |
-| `css/05-fonts.css` | — | Self-hosted Geist + JetBrains Mono (`fonts/*.woff2`) |
-| `css/10-tokens.css` | tokens | Scales: spacing, type, radius, motion, sizing, z-index, app layout |
-| `css/11-theme.css` | tokens | Colour: dark (`:root`) and light (`[data-theme="light"]`), status tints |
-| `css/20-base.css` | base | Reset, element defaults, focus ring, reduced motion |
-| `css/30-primitives.css` | primitives | Buttons, chips, forms, cards, tables, alerts, tabs, menus, dialogs… |
-| `css/40-shell.css` | shell | Topbar, side panels, footer, mobile nav |
-| `css/50-pages.css` | pages | Canvas wireframe, changelog, design-system page |
-| `css/theme.css` | **un-layered** | Your project overrides — always wins |
+```
+assets/css/
+  main.css               entry: declares layer order, @imports everything below
+  theme.css              YOUR overrides — un-layered, imported last, always wins
+  tokens/                (layer: tokens)
+    scales.css           spacing, type, radius, motion, sizing, z-index + the 3 global knobs
+    semantic.css         what a component *means*: --radius-control, --card-pad, …
+    layout.css           app chrome dimensions: topbar, panels, footer
+    colours.css          dark (default) and light themes
+    status.css           status tints derived with color-mix()
+  base/
+    fonts.css            self-hosted Geist + JetBrains Mono
+    elements.css         (layer: base) reset, element defaults, focus ring, reduced motion
+  components/            (layer: primitives) one file per component family
+  layout/                (layer: shell) app frame, topbar, side panels, footer, mobile nav
+  pages/                 (layer: pages) one file per page, linked by that page only
+```
 
-Load order in every page `<head>` is the table order. Un-layered CSS beats all layers,
-so `theme.css` never needs `!important`.
+Every page loads `main.css`, then its own file(s) from `pages/`. Un-layered CSS beats all
+layers, so `theme.css` never needs `!important`.
 
 ## Re-skinning
 
-Only touch `css/theme.css`:
+Only touch `assets/css/theme.css`:
 
 ```css
 /* Global knobs — re-scale everything at once */
@@ -53,13 +59,13 @@ Only touch `css/theme.css`:
 
 ## Theme switching
 
-`<html data-theme="dark|light">`. A tiny inline script in each `<head>` sets it before
+`<html data-theme="dark|light">`. A tiny blocking script (`assets/js/theme-init.js`) in each `<head>` sets it before
 first paint: saved choice (`localStorage["app-theme"]`) → OS light preference → dark.
-`js/app.js` wires the `#themeToggle` button.
+`assets/js/theme-init.js` does the pre-paint step; `assets/js/modules/theme.js` wires the `#themeToggle` button.
 
 ## Starting a new project from the blueprint
 
-1. Copy `css/`, `fonts/`, `js/app.js` and the page shells you need.
+1. Copy `assets/` and the page shells you need.
 2. Replace the placeholder "Acme Inc." branding, logo mark and favicon.
-3. Set the brand accent in `css/theme.css`.
-4. Build pages from the primitives; add page-specific styles in `50-pages.css` (or your own file in the `pages` layer).
+3. Set the brand accent in `assets/css/theme.css`.
+4. Build pages from the components; add page-specific styles in a new `assets/css/pages/<page>.css` wrapped in `@layer pages { … }`.

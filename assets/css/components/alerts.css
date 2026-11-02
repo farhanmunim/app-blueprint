@@ -1,0 +1,12 @@
+/* =============================================================================
+   Alerts
+   ========================================================================== */
+
+.alert { display: flex; gap: var(--space-3); padding: var(--space-3) var(--space-4); border: 1px solid var(--border); border-radius: var(--radius-card); background: var(--surface); font-size: var(--text-base); }
+.alert > .icon { margin-top: 2px; color: var(--text-secondary); }
+.alert__title { font-weight: var(--weight-medium); }
+.alert__text { margin-top: var(--space-0-5); color: var(--text-secondary); font-size: var(--text-sm); }
+.alert--info    { background: var(--info-subtle);    border-color: var(--info-border); }    .alert--info > .icon    { color: var(--info); }
+.alert--success { background: var(--success-subtle); border-color: var(--success-border); } .alert--success > .icon { color: var(--success); }
+.alert--warning { background: var(--warning-subtle); border-color: var(--warning-border); } .alert--warning > .icon { color: var(--warning); }
+.alert--danger  { background: var(--danger-subtle);  border-color: var(--danger-border); }  .alert--danger > .icon  { color: var(--danger); }

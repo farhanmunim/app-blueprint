@@ -1,0 +1,15 @@
+/* =============================================================================
+   TOKENS · app layout — chrome dimensions, theme independent
+   ========================================================================== */
+:root {
+  --topbar-h: 56px;
+  --footer-h: 32px;
+  --mobile-nav-h: 68px;
+  --panel-w: 248px;
+  --panel-w-rail: 56px;
+  --right-w: 304px;
+  --content-w: 920px;
+  --prose-w: 720px;
+  --bp-mobile: 640px;      /* reference only — media queries can't read vars */
+  --bp-tablet: 900px;
+}

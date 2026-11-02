@@ -1,0 +1,62 @@
+/* =============================================================================
+   PAGE · Design system token specimens (design-system.html)
+   One rule per token so the page needs no inline styles. Add a rule here when a token is added.
+   ========================================================================== */
+@layer pages {
+
+.sw-bg { --sw: var(--bg); }
+.sw-surface { --sw: var(--surface); }
+.sw-surface-raised { --sw: var(--surface-raised); }
+.sw-surface-hover { --sw: var(--surface-hover); }
+.sw-border { --sw: var(--border); }
+.sw-border-hover { --sw: var(--border-hover); }
+.sw-border-subtle { --sw: var(--border-subtle); }
+.sw-text-primary { --sw: var(--text-primary); }
+.sw-text-secondary { --sw: var(--text-secondary); }
+.sw-text-muted { --sw: var(--text-muted); }
+.sw-text-subtle { --sw: var(--text-subtle); }
+.sw-accent { --sw: var(--accent); }
+.sw-on-accent { --sw: var(--on-accent); }
+.sw-accent-subtle { --sw: var(--accent-subtle); }
+.sw-focus-ring { --sw: var(--focus-ring); }
+.sw-success { --sw: var(--success); }
+.sw-warning { --sw: var(--warning); }
+.sw-danger { --sw: var(--danger); }
+.sw-info { --sw: var(--info); }
+.sw-violet { --sw: var(--violet); }
+.ds-sp-1 { width: var(--space-1); }
+.ds-sp-2 { width: var(--space-2); }
+.ds-sp-3 { width: var(--space-3); }
+.ds-sp-4 { width: var(--space-4); }
+.ds-sp-6 { width: var(--space-6); }
+.ds-sp-8 { width: var(--space-8); }
+.ds-sp-12 { width: var(--space-12); }
+.ds-sp-16 { width: var(--space-16); }
+.ds-t-2xs { font-size: var(--text-2xs); }
+.ds-t-xs { font-size: var(--text-xs); }
+.ds-t-sm { font-size: var(--text-sm); }
+.ds-t-base { font-size: var(--text-base); }
+.ds-t-md { font-size: var(--text-md); }
+.ds-t-lg { font-size: var(--text-lg); }
+.ds-t-xl { font-size: var(--text-xl); }
+.ds-t-2xl { font-size: var(--text-2xl); }
+.ds-t-3xl { font-size: var(--text-3xl); }
+.ds-t-4xl { font-size: var(--text-4xl); }
+.ds-t-5xl { font-size: var(--text-5xl); }
+.ds-r-2xs { border-radius: var(--radius-2xs); }
+.ds-r-xs { border-radius: var(--radius-xs); }
+.ds-r-sm { border-radius: var(--radius-sm); }
+.ds-r-md { border-radius: var(--radius-md); }
+.ds-r-lg { border-radius: var(--radius-lg); }
+.ds-r-xl { border-radius: var(--radius-xl); }
+.ds-r-2xl { border-radius: var(--radius-2xl); }
+.ds-r-3xl { border-radius: var(--radius-3xl); }
+.ds-r-full { border-radius: var(--radius-full); }
+.ds-sh-subtle { --sh: var(--shadow-subtle); }
+.ds-sh-elevated { --sh: var(--shadow-elevated); }
+.ds-sh-glow { --sh: var(--shadow-glow); }
+.ds-sh-modal { --sh: var(--shadow-modal); }
+.ds-sh-dock { --sh: var(--shadow-dock); }
+.p-25 { --value: 25%; } .p-60 { --value: 60%; } .p-85 { --value: 85%; }
+
+}

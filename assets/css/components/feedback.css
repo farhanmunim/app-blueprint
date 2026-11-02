@@ -1,0 +1,17 @@
+/* =============================================================================
+   Feedback — progress, spinner, skeleton, empty state, toast
+   ========================================================================== */
+
+.progress { height: 6px; border-radius: var(--radius-full); background: var(--surface-raised); overflow: hidden; }
+.progress__bar { height: 100%; width: var(--value, 0%); border-radius: inherit; background: var(--accent); transition: width var(--duration-slower) var(--ease-soft); }
+.progress--success .progress__bar { background: var(--success); } .progress--warning .progress__bar { background: var(--warning); } .progress--danger .progress__bar { background: var(--danger); }
+.spinner { width: 18px; height: 18px; border: 2px solid var(--border-hover); border-top-color: var(--text-primary); border-radius: 50%; animation: spin .7s linear infinite; }
+.skeleton { display: block; height: 10px; border-radius: var(--radius-full); background: linear-gradient(90deg, var(--surface-raised), var(--surface-hover), var(--surface-raised)); background-size: 200% 100%; animation: shimmer 1.6s ease-in-out infinite; }
+.empty { display: flex; flex-direction: column; align-items: center; gap: var(--space-2); padding: var(--space-10) var(--space-6); text-align: center; }
+.empty__icon { display: grid; place-items: center; width: 40px; height: 40px; margin-bottom: var(--space-1); border: 1px solid var(--border); border-radius: var(--radius-lg); background: var(--surface-raised); color: var(--text-secondary); }
+.empty__title { font-size: var(--text-md); font-weight: var(--weight-medium); }
+.empty__text { max-width: 320px; font-size: var(--text-sm); color: var(--text-muted); }
+.empty .btn { margin-top: var(--space-2); }
+.toast-region { position: fixed; z-index: var(--z-toast); right: var(--space-4); bottom: var(--space-4); display: grid; gap: var(--space-2); width: min(360px, calc(100vw - var(--space-8))); pointer-events: none; }
+.toast { display: flex; align-items: center; gap: var(--space-3); padding: var(--space-3) var(--space-4); border: 1px solid var(--border); border-radius: var(--radius-card); background: var(--surface-raised); box-shadow: var(--shadow-elevated); font-size: var(--text-base); pointer-events: auto; animation: toast-in .25s var(--ease-soft); }
+.toast .icon { color: var(--success); }

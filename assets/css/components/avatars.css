@@ -1,0 +1,14 @@
+/* =============================================================================
+   Avatars
+   ========================================================================== */
+
+.avatar {
+  display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0; width: 28px; height: 28px;
+  border-radius: var(--radius-full); border: 2px solid var(--surface); font-size: var(--text-2xs); font-weight: var(--weight-semibold); line-height: 1;
+  background: var(--hue, var(--surface-raised)); color: var(--bg);
+}
+.avatar--info   { --hue: var(--hue-1); } .avatar--violet { --hue: var(--hue-2); } .avatar--success { --hue: var(--hue-3); }
+.avatar--warning { --hue: var(--hue-4); } .avatar--danger { --hue: var(--hue-5); }
+.avatar--lg { width: 40px; height: 40px; font-size: var(--text-sm); }
+.avatars { display: flex; align-items: center; }
+.avatars .avatar + .avatar { margin-left: calc(var(--space-2) * -1); }

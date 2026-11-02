@@ -1,0 +1,54 @@
+/* =============================================================================
+   App Blueprint — stylesheet entry. One <link> per page loads everything shared.
+
+   Cascade layers (order = precedence, later wins):
+     tokens      design tokens: scales, semantic aliases, colour, status tints
+     base        reset + element defaults
+     primitives  components: buttons, forms, cards, tables, dialogs, …
+     shell       app layout: frame, topbar, side panels, footer, mobile nav
+     pages       page-specific styles (each page links its own file after this one)
+
+   Anything written OUTSIDE a layer beats all of them, so theme.css (imported
+   last, un-layered) always wins. See THEMING.md.
+   ========================================================================== */
+@layer tokens, base, primitives, shell, pages;
+
+/* fonts */
+@import url("base/fonts.css");
+
+/* tokens */
+@import url("tokens/scales.css") layer(tokens);
+@import url("tokens/semantic.css") layer(tokens);
+@import url("tokens/layout.css") layer(tokens);
+@import url("tokens/colours.css") layer(tokens);
+@import url("tokens/status.css") layer(tokens);
+
+/* base */
+@import url("base/elements.css") layer(base);
+
+/* components */
+@import url("components/utilities.css") layer(primitives);
+@import url("components/icons.css") layer(primitives);
+@import url("components/buttons.css") layer(primitives);
+@import url("components/chips.css") layer(primitives);
+@import url("components/avatars.css") layer(primitives);
+@import url("components/forms.css") layer(primitives);
+@import url("components/cards.css") layer(primitives);
+@import url("components/alerts.css") layer(primitives);
+@import url("components/tabs.css") layer(primitives);
+@import url("components/navigation.css") layer(primitives);
+@import url("components/table.css") layer(primitives);
+@import url("components/menus.css") layer(primitives);
+@import url("components/feedback.css") layer(primitives);
+@import url("components/dialog.css") layer(primitives);
+@import url("components/animations.css") layer(primitives);
+
+/* layout */
+@import url("layout/app.css") layer(shell);
+@import url("layout/topbar.css") layer(shell);
+@import url("layout/panels.css") layer(shell);
+@import url("layout/footer.css") layer(shell);
+@import url("layout/mobile-nav.css") layer(shell);
+
+/* project overrides — un-layered, last */
+@import url("theme.css");

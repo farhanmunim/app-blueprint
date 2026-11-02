@@ -31,27 +31,11 @@
     <meta name="color-scheme" content="dark light" />
     <meta name="theme-color" content="#151515" media="(prefers-color-scheme: dark)" />
     <meta name="theme-color" content="#FAFAFA" media="(prefers-color-scheme: light)" />
-    <link rel="preload" href="fonts/geist-var.woff2" as="font" type="font/woff2" crossorigin />
-    <link rel="preload" href="fonts/jetbrains-mono-var.woff2" as="font" type="font/woff2" crossorigin />
-    <link rel="stylesheet" href="css/00-layers.css" />
-    <link rel="stylesheet" href="css/05-fonts.css" />
-    <link rel="stylesheet" href="css/10-tokens.css" />
-    <link rel="stylesheet" href="css/11-theme.css" />
-    <link rel="stylesheet" href="css/20-base.css" />
-    <link rel="stylesheet" href="css/30-primitives.css" />
-    <link rel="stylesheet" href="css/40-shell.css" />
-    <link rel="stylesheet" href="css/50-pages.css" />
-    <link rel="stylesheet" href="css/theme.css" />
-    <script>
-      // Apply theme before first paint. Saved choice wins; otherwise dark, unless the OS asks for light.
-      (function () {
-        try {
-          var stored = localStorage.getItem("app-theme");
-          var theme = stored || (matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark");
-          document.documentElement.setAttribute("data-theme", theme);
-        } catch (_) {}
-      })();
-    </script>
+    <link rel="preload" href="assets/fonts/geist-var.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="assets/fonts/jetbrains-mono-var.woff2" as="font" type="font/woff2" crossorigin />
+    <script src="assets/js/theme-init.js"></script>
+    <link rel="stylesheet" href="assets/css/main.css" />
+    <link rel="stylesheet" href="assets/css/pages/canvas.css" />
   </head>
   <body>
     <!-- TOPBAR -->
@@ -602,6 +586,6 @@
       </div>
     </dialog>
 
-    <script src="js/app.js" defer></script>
+    <script type="module" src="assets/js/app.js"></script>
   </body>
 </html>

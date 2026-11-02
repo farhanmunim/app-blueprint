@@ -1,0 +1,12 @@
+/* =============================================================================
+   Dialog (native <dialog>)
+   ========================================================================== */
+
+.dialog { position: fixed; inset: 0; margin: auto; width: calc(100% - var(--space-8)); max-width: 460px; max-height: calc(100dvh - var(--space-12)); padding: 0; overflow: hidden; border: 1px solid var(--border); border-radius: var(--radius-overlay); background: var(--surface); color: var(--text-primary); box-shadow: var(--shadow-modal); }
+.dialog[open] { animation: dialog-in var(--duration-slow) var(--ease-soft) both; }
+.dialog::backdrop { background: var(--overlay); backdrop-filter: blur(var(--blur-sm)); }
+.dialog__inner { display: flex; flex-direction: column; max-height: inherit; }
+.dialog__header { display: flex; align-items: center; justify-content: space-between; gap: var(--space-4); padding: var(--space-4) var(--space-5); border-bottom: 1px solid var(--border-subtle); }
+.dialog__title { font-size: var(--text-md); font-weight: var(--weight-medium); letter-spacing: var(--tracking-snug); }
+.dialog__body { padding: var(--space-5); overflow-y: auto; }
+.dialog__footer { display: flex; justify-content: flex-end; gap: var(--space-2); padding: var(--space-3) var(--space-5); border-top: 1px solid var(--border-subtle); background: var(--bg); }

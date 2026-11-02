@@ -1,0 +1,16 @@
+/* =============================================================================
+   FOOTER
+   ========================================================================== */
+
+.app-footer { position: relative; z-index: calc(var(--z-bar) - 1); flex-shrink: 0; display: flex; align-items: center; gap: var(--space-4); min-height: var(--footer-h); padding: 0 var(--space-6); background: rgba(var(--bg-rgb), .9); border-top: 1px solid var(--border-subtle); font-size: var(--text-xs); color: var(--text-muted); }
+.app-footer a, .app-footer__link { display: inline-flex; align-items: center; gap: var(--space-1); color: var(--text-muted); text-decoration: underline; text-decoration-color: transparent; text-underline-offset: 3px; transition: color var(--duration-fast), text-decoration-color var(--duration-fast); }
+.app-footer a:hover, .app-footer__link:hover { color: var(--text-primary); text-decoration-color: currentColor; }
+.app-footer__link { appearance: none; padding: 0; border: 0; background: none; font: inherit; cursor: pointer; }
+.footer-sep { width: 1px; height: 12px; background: var(--border); }
+.footer-spacer { flex: 1; }
+.footer-meta { display: inline-flex; align-items: center; gap: var(--space-1-5); font-family: var(--font-mono); }
+.footer-meta::before { content: ""; width: 6px; height: 6px; border-radius: var(--radius-full); background: var(--success); animation: pulse-subtle 3s infinite; }
+
+@media (max-width: 640px) {
+  .app-footer { order: 2; flex-wrap: wrap; height: auto; min-height: 40px; padding: var(--space-3) var(--space-4); row-gap: var(--space-2); }
+}

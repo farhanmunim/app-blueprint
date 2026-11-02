@@ -1,0 +1,14 @@
+/* =============================================================================
+   Breadcrumb & pagination
+   ========================================================================== */
+
+.breadcrumb { display: flex; align-items: center; gap: var(--space-2); font-size: var(--text-base); color: var(--text-muted); line-height: 1; }
+.breadcrumb a { text-decoration: none; color: var(--text-secondary); } .breadcrumb a:hover { color: var(--text-primary); }
+.breadcrumb [aria-current="page"] { color: var(--text-primary); font-weight: var(--weight-medium); }
+.breadcrumb__sep { color: var(--text-subtle); }
+.pagination { display: inline-flex; align-items: center; gap: var(--space-1); }
+.pagination .btn[aria-current="page"] { background: var(--surface-raised); border-color: var(--border); }
+
+@media (max-width: 900px) {
+  .breadcrumb > :not(:last-child) { display: none; }
+}
